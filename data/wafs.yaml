@@ -1,3 +1,6 @@
+- key: awswaf
+  label: AWS WAF
+  link: https://aws.amazon.com/waf/
 - key: cloudflare
   label: Cloudflare
   link: https://www.cloudflare.com/application-services/products/waf/

@@ -7,6 +7,9 @@
 - key: laravel
   label: Laravel
   link: https://laravel.com/
+- key: rubyonrails
+  label: Ruby on Rails
+  link: https://rubyonrails.org/
 - key: silverstripe
   label: Silverstripe CMS
   link: https://www.silverstripe.com/silverstripe-cms/
