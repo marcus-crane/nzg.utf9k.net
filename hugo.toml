@@ -1,0 +1,7 @@
+baseURL = 'https://nzg.utf9k.net/'
+languageCode = 'en-us'
+title = 'nzg.utf9k.net'
+timeZone = 'Pacific/Auckland'
+
+[params]
+  description = 'Poking around NZ governments websites as a hobby.'
