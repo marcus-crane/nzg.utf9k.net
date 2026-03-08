@@ -1,0 +1,6 @@
+- key: rss2
+  label: RSS 2.0
+  spec: https://www.rssboard.org/rss-specification
+- key: atom
+  label: Atom 1.0
+  spec: https://www.rfc-editor.org/rfc/rfc4287

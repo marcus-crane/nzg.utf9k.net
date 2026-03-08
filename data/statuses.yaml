@@ -1,0 +1,12 @@
+- key: live
+  label: Live
+  description: This feed is active and is continually publishing updates.
+- key: stale
+  label: Stale
+  description: This feed has not published any updates in some time despite its host website having since updated.
+- key: broken
+  label: Broken
+  description: This feed is still actively referenced by the host website but something about it appears to be broken.
+- key: dead
+  label: Dead
+  description: This feed is still actively referenced by the host website but does not appear to work/exist anymore.
