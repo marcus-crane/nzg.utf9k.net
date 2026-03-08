@@ -1,0 +1,22 @@
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  toggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    toggle.innerHTML = next === 'dark'
+      ? '{{ partial "icons/moon.html" }}'
+      : '{{ partial "icons/sun.html" }}';
+  });
+  // Restore saved theme
+  const saved = localStorage.getItem('theme');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+    if (saved === 'dark') {
+      toggle.innerHTML = '{{ partial "icons/moon.html" }}';
+    }
+  }
+</script>

@@ -1,0 +1,121 @@
+:root {
+  --pico-primary: #0A7B6C;
+  --pico-primary-hover: #08665a;
+  --green:     #2D8659;
+  --orange:    #D4752E;
+  --mono: "SF Mono", "Cascadia Code", "Fira Code", "JetBrains Mono",
+          Consolas, monospace;
+}
+
+[data-theme="light"] {
+  --pico-background-color: #F4F3EF;
+  --pico-card-background-color: #fff;
+  --pico-card-border-color: #DDDCD8;
+  --pico-card-sectioning-background-color: #fff;
+  --deep-blue: #1B3A5C;
+  --muted: #aaa;
+  --muted-light: #bbb;
+  --muted-lighter: #ccc;
+  --muted-text: #888;
+  --separator: #EEEEE9;
+}
+
+[data-theme="dark"] {
+  --deep-blue: #c9d6e3;
+  --muted: #888;
+  --muted-light: #777;
+  --muted-lighter: #666;
+  --muted-text: #999;
+  --separator: #333;
+}
+
+/* Layout */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body > header,
+body > main,
+body > footer {
+  padding-block: 0;
+}
+
+body > main {
+  flex: 1; padding-block: 2rem 0;
+}
+
+/* Site header */
+header {
+  border-bottom: 2px solid var(--pico-primary);
+}
+
+header nav strong {
+  font-size: 1.0625rem;
+  color: var(--deep-blue);
+}
+
+header nav a {
+  font-size: 0.8125rem;
+  color: var(--deep-blue);
+}
+
+header nav a:hover,
+header nav a[aria-current] {
+  color: var(--pico-primary);
+}
+
+/* Page titles */
+.page-title {
+  font-size: 1.5rem;
+  color: var(--deep-blue);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.page-desc {
+  font-size: 0.875rem;
+  color: var(--muted-text);
+  margin-bottom: 0.5rem;
+}
+
+.page-wip {
+  font-size: 0.8125rem;
+  color: var(--muted-text);
+  margin-bottom: 2rem;
+}
+
+.page-url {
+  font-size: 0.75rem;
+  font-family: var(--mono);
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+/* Homepage */
+.hero {
+  text-align: center;
+  padding: 3rem 0 2rem;
+}
+
+.hero-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  line-height: 1;
+  color: var(--pico-primary);
+}
+
+.hero h1 {
+  font-size: 2rem;
+  color: var(--deep-blue);
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.hero p {
+  font-size: 1rem;
+  color: var(--muted-text);
+  max-width: 32rem;
+  margin: 0 auto;
+}
