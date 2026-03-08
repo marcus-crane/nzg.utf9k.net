@@ -1,0 +1,29 @@
+{{ define "main" }}
+<main class="container">
+  <h1 class="page-title">{{ .Title }}</h1>
+  <p class="page-subtitle">{{ .Params.description }}</p>
+  <p class="page-description">{{ .Content }}</p>
+
+  <div class="grid">
+    {{ range sort .Pages ".Params.domain" }}
+      {{ $slug := .File.ContentBaseName }}
+      {{ $feeds := index site.Data.feeds $slug }}
+      {{ $wafCount := 0 }}
+      {{ if $feeds }}
+        {{ range $feeds }}{{ if .waf }}{{ $wafCount = add $wafCount 1 }}{{ end }}{{ end }}
+      {{ end }}
+      <article>
+        <a href="{{ .RelPermalink }}">
+          <div class="agency-name">{{ .Title }}</div>
+          <div class="agency-url">{{ .Params.domain }}</div>
+          {{ if $feeds }}
+          <div class="agency-meta">
+            {{ len $feeds }} feeds{{ with $wafCount }} · {{ . }} restricted{{ end }}
+          </div>
+          {{ end }}
+        </a>
+      </article>
+    {{ end }}
+  </div>
+</main>
+{{ end }}

@@ -1,0 +1,98 @@
+{{ define "main" }}
+{{ $slug := .File.ContentBaseName }}
+{{ $feeds := index site.Data.feeds $slug }}
+<main class="container">
+  <h1 class="page-title">{{ .Title }}</h1>
+  <p class="page-url">{{ .Params.domain }}</p>
+
+  {{ with .Content }}<div>{{ . }}</div>{{ end }}
+
+  {{ if $feeds }}
+  <section class="feeds-section">
+    <h2 class="feeds-heading">Feeds</h2>
+
+    <details class="legend">
+      <summary>Legend</summary>
+      <table>
+        <tbody>
+          <tr class="legend-group"><th colspan="2">Status</th></tr>
+          {{ range site.Data.statuses }}
+          <tr>
+            <td><span class="feed-status feed-status--{{ .key }}">{{ .label }}</span></td>
+            <td>{{ .description }}</td>
+          </tr>
+          {{ end }}
+          <tr class="legend-group"><th colspan="2">Format</th></tr>
+          {{ range site.Data.formats }}
+          <tr>
+            <td>{{ .label }}</td>
+            <td>{{ .label }} syndication format</td>
+          </tr>
+          {{ end }}
+          <tr class="legend-group"><th colspan="2">WAF</th></tr>
+          {{ range site.Data.wafs }}
+          <tr>
+            <td>{{ .label }}</td>
+            <td>{{ .description }}</td>
+          </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </details>
+
+    {{ range $feeds }}
+      {{ $format := index (where site.Data.formats "key" .format) 0 }}
+      {{ $status := index (where site.Data.statuses "key" .status) 0 }}
+      <article class="feed-card">
+        <div class="feed-header">
+          <span class="feed-name">{{ .name }}</span>
+          <span class="feed-status feed-status--{{ .status }}">{{ $status.label }}</span>
+        </div>
+        <div class="feed-url"><a href="{{ .url }}">{{ .url }}</a></div>
+        <div class="feed-details">
+          <div><span class="feed-detail-label">Format</span> {{ $format.label }}</div>
+          {{ with .waf }}
+            {{ $waf := index (where site.Data.wafs "key" .) 0 }}
+            <div><span class="feed-detail-label">WAF</span> {{ $waf.label }}</div>
+          {{ end }}
+          {{ with .date_added }}
+            <div><span class="feed-detail-label">Added</span> {{ time.AsTime . | time.Format "2 January 2006" }}</div>
+          {{ end }}
+        </div>
+        {{ if .date_added }}
+        <div class="feed-history">
+          <div class="feed-history-title">History</div>
+          <ul class="feed-history-list">
+            {{ range .history }}
+            <li>
+              <span class="feed-history-date">{{ time.AsTime .date | time.Format "2 January 2006" }}</span>
+              <span class="feed-history-note">{{ .note }}</span>
+            </li>
+            {{ end }}
+            <li>
+              <span class="feed-history-date">{{ time.AsTime .date_added | time.Format "2 January 2006" }}</span>
+              <span class="feed-history-note">Feed added</span>
+            </li>
+          </ul>
+        </div>
+        {{ end }}
+        {{ with .lineage }}
+        <div class="feed-lineage">
+          <div class="feed-lineage-title">Discovered via</div>
+          <ul class="feed-lineage-list">
+            {{ range . }}
+            <li>
+              {{ if eq .type "meta" }}Embedded via <code>&lt;link&gt;</code> meta tag on{{ else if eq .type "listed" }}Listed on{{ end }}
+              <a href="https://{{ .page }}">{{ .page }}</a>
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+      </article>
+    {{ end }}
+
+  </section>
+  {{ end }}
+</main>
+{{ end }}
