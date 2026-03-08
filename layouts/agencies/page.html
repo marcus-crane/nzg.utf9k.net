@@ -6,7 +6,13 @@
   <p class="page-url"><a href="{{ if .Params.canonical }}{{ .Params.canonical }}{{ else }}https://{{ .Params.domain }}{{ end }}"
 >{{ .Params.domain }}</a></p>
 
-  {{ with .Content }}<div>{{ . }}</div>{{ end }}
+  {{ if .Content }}
+    <div>{{ .Content }}</div>
+  {{ else }}
+    {{ if not $feeds }}
+    There appear to be no known feeds for this agency.
+    {{ end }}
+  {{ end }}
 
   {{ if $feeds }}
   <section class="feeds-section">
@@ -30,11 +36,11 @@
             <td>{{ .label }} syndication format</td>
           </tr>
           {{ end }}
-          <tr class="legend-group"><th colspan="2">WAF</th></tr>
+          <tr class="legend-group"><th colspan="2">Firewall</th></tr>
           {{ range site.Data.wafs }}
           <tr>
             <td><a href="{{ .link }}" rel="noreferrer">{{ .label }}</a></td>
-            <td>{{ .description }}</td>
+            <td>This website is protected by {{ .label }} so this feed may not be reachable by hosted RSS readers or other automation.</td>
           </tr>
           {{ end }}
         </tbody>
@@ -84,7 +90,7 @@
           <div><span class="feed-detail-label">Format</span> {{ $format.label }}</div>
           {{ with .waf }}
             {{ $waf := index (where site.Data.wafs "key" .) 0 }}
-            <div><span class="feed-detail-label">WAF</span> {{ $waf.label }}</div>
+            <div><span class="feed-detail-label">Firewall</span> {{ $waf.label }}</div>
           {{ end }}
           {{ with .date_added }}
             <div><span class="feed-detail-label">Added</span> {{ time.AsTime . | time.Format "2 January 2006" }}</div>

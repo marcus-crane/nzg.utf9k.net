@@ -1,3 +1,6 @@
 - key: drupal
   label: Drupal
   link: https://new.drupal.org/home
+- key: ibm-notes
+  label: HCL Domino (aka IBM/Lotus Notes)
+  link: https://www.hcl-software.com/domino

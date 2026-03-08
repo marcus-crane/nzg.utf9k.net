@@ -1,8 +1,9 @@
 - key: cloudflare
   label: Cloudflare
   link: https://www.cloudflare.com/application-services/products/waf/
-  description: This website is protected by Cloudflare WAF so this feed may not be reachable by hosted RSS readers or other automation.
 - key: imperva
   label: Imperva
   link: https://www.imperva.com/products/web-application-firewall-waf/
-  description: This website is protected by Imperva WAF so this feed may not be reachable by hosted RSS readers or other automation.
+- key: redshield
+  label: RedShield
+  link: https://www.kordia.co.nz/redshield
