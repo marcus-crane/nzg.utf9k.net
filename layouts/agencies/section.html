@@ -31,12 +31,12 @@
           <a href="{{ $waf.link }}">{{ $waf.label }}</a>
           </div>
           {{ end }}
-          <div><span class="feed-detail-label">Generator</span>
-          {{ with .Params.generator }}
-          {{ $generator := index (where site.Data.generators "key" .) 0 }}
-          <a href="{{ $generator.link }}">{{ $generator.label }}</a>
+          <div><span class="feed-detail-label">Framework</span>
+          {{ with .Params.framework }}
+          {{ $framework := index (where site.Data.frameworks "key" .) 0 }}
+          <a href="{{ $framework.link }}">{{ $framework.label }}</a>
           {{ else }}
-          Custom
+          None / Unknown
           {{ end }}
           </div>
         </div>

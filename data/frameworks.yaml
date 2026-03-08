@@ -4,3 +4,9 @@
 - key: ibm-notes
   label: HCL Domino (aka IBM/Lotus Notes)
   link: https://www.hcl-software.com/domino
+- key: laravel
+  label: Laravel
+  link: https://laravel.com/
+- key: silverstripe
+  label: Silverstripe CMS
+  link: https://www.silverstripe.com/silverstripe-cms/

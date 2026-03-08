@@ -2,6 +2,6 @@
 title: New Zealand Police
 domain: police.govt.nz
 canonical: https://www.police.govt.nz/
-generator: drupal
+framework: drupal
 waf: redshield
 ---

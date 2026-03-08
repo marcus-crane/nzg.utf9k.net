@@ -2,6 +2,6 @@
 title: Beehive
 domain: beehive.govt.nz
 canonical: https://www.beehive.govt.nz/
-generator: drupal
+framework: drupal
 waf: imperva
 ---
