@@ -51,7 +51,7 @@
             Unrestricted
           </option>
           {{ range sort site.Data.wafs "label" }}
-          <option>{{ .label }}</option>
+          <option value="{{ .key }}">{{ .label }}</option>
           {{ end }}
         </select>
         <select name="feed-status" aria-label="Filter by feed status...">
@@ -59,7 +59,7 @@
             All statuses
           </option>
           {{ range sort site.Data.statuses "key" }}
-          <option>{{ .label }}</option>
+          <option value="{{ .key }}">{{ .label }}</option>
           {{ end }}
         </select>
       </fieldset>
@@ -68,7 +68,12 @@
     {{ range $feeds }}
       {{ $format := index (where site.Data.formats "key" .format) 0 }}
       {{ $status := index (where site.Data.statuses "key" .status) 0 }}
-      <article class="feed-card">
+      {{ $wafRestriction := "none" }}
+      {{ with .waf }}
+      {{ $wafRestriction = . }}
+      {{ end }}
+
+    <article class="feed-card" data-feed-name="{{ .name }}" data-feed-status="{{ .status }}" data-feed-waf="{{ $wafRestriction }}">
         <div class="feed-header">
           <span class="feed-name">{{ .name }}</span>
           <span class="feed-status feed-status--{{ .status }}">{{ $status.label }}</span>
@@ -119,6 +124,34 @@
     {{ end }}
 
   </section>
+  <script>
+    const searchInput = document.querySelector('input[name="Search"]');
+    const wafSelect = document.querySelector('select[name="feed-restrictions"]');
+    const statusSelect = document.querySelector('select[name="feed-status"]');
+    const cards = document.querySelectorAll('.feed-card');
+
+    function filterCards() {
+      const query = searchInput.value.toLowerCase();
+      const waf = wafSelect.value;
+      const status = statusSelect.value;
+
+      cards.forEach(card => {
+        const name = card.dataset.feedName.toLowerCase();
+        const cardStatus = card.dataset.feedStatus;
+        const cardWaf = card.dataset.feedWaf;
+
+        const matchesName = !query || name.includes(query);
+        const matchesStatus = status === 'all' || cardStatus === status;
+        const matchesWaf = waf === 'all' || cardWaf === waf;
+
+        card.style.display = (matchesName && matchesStatus && matchesWaf) ? '' : 'none';
+      });
+    }
+
+    searchInput.addEventListener('input', filterCards);
+    wafSelect.addEventListener('change', filterCards);
+    statusSelect.addEventListener('change', filterCards);
+  </script>
   {{ end }}
 </main>
 {{ end }}
