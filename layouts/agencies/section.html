@@ -13,17 +13,33 @@
         {{ range $feeds }}{{ if .waf }}{{ $wafCount = add $wafCount 1 }}{{ end }}{{ end }}
       {{ end }}
       <article>
-        <a href="{{ .RelPermalink }}">
-          <div class="agency-name">{{ .Title }}</div>
-          <div class="agency-url">{{ .Params.domain }}</div>
-          <div class="agency-meta">
-            {{ if $feeds }}
-            {{ len $feeds }} feed{{ if gt $feeds 1 }}s{{ end }}{{ with $wafCount }} · {{ . }} restricted{{ end }}
-            {{ else }}
-            This agency does not appear to offer any feeds
-            {{ end }}
+        <div class="agency-name">
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </div>
+        <div class="agency-url">{{ .Params.domain }}</div>
+        <div class="agency-meta">
+          <div><span class="feed-detail-label">Feeds</span> 
+          {{ if $feeds }}
+          <a href="{{ .RelPermalink }}">{{ len $feeds }} total{{ if gt $feeds 1 }}s{{ end }}{{ with $wafCount }} · {{ . }} restricted{{ end }}</a>
+          {{ else }}
+          None
+          {{ end }}
           </div>
-        </a>
+          {{ with .Params.waf }}
+          {{ $waf := index (where site.Data.wafs "key" .) 0 }}
+          <div><span class="feed-detail-label">Firewall</span>
+          <a href="{{ $waf.link }}">{{ $waf.label }}</a>
+          </div>
+          {{ end }}
+          <div><span class="feed-detail-label">Generator</span>
+          {{ with .Params.generator }}
+          {{ $generator := index (where site.Data.generators "key" .) 0 }}
+          <a href="{{ $generator.link }}">{{ $generator.label }}</a>
+          {{ else }}
+          Custom
+          {{ end }}
+          </div>
+        </div>
       </article>
     {{ end }}
   </div>

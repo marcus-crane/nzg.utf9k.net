@@ -1,6 +1,7 @@
 ---
 title: Reserve Bank of New Zealand
 domain: rbnz.govt.nz
+waf: cloudflare
 ---
 
 While the Reserve Bank previously[^previously] offered an RSS feed for news publications, this doesn't seem to be the case anymore.
