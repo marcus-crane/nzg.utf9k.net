@@ -1,6 +1,8 @@
 - key: cloudflare
   label: Cloudflare
-  description: This website uses Cloudflare so this feed may not be reachable by hosted RSS readers or other automation.
+  link: https://www.cloudflare.com/application-services/products/waf/
+  description: This website is protected by Cloudflare WAF so this feed may not be reachable by hosted RSS readers or other automation.
 - key: imperva
   label: Imperva
-  description: This website uses Imperva so this feed may not be reachable by hosted RSS readers or other automation.
+  link: https://www.imperva.com/products/web-application-firewall-waf/
+  description: This website is protected by Imperva WAF so this feed may not be reachable by hosted RSS readers or other automation.

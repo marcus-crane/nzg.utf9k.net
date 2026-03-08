@@ -3,7 +3,7 @@
 {{ $feeds := index site.Data.feeds $slug }}
 <main class="container">
   <h1 class="page-title">{{ .Title }}</h1>
-  <p class="page-url">{{ .Params.domain }}</p>
+  <p class="page-url"><a href="https://{{ .Params.domain }}">{{ .Params.domain }}</a></p>
 
   {{ with .Content }}<div>{{ . }}</div>{{ end }}
 
@@ -25,14 +25,14 @@
           <tr class="legend-group"><th colspan="2">Format</th></tr>
           {{ range site.Data.formats }}
           <tr>
-            <td>{{ .label }}</td>
+            <td><a href="{{ .spec }}">{{ .label }}</a></td>
             <td>{{ .label }} syndication format</td>
           </tr>
           {{ end }}
           <tr class="legend-group"><th colspan="2">WAF</th></tr>
           {{ range site.Data.wafs }}
           <tr>
-            <td>{{ .label }}</td>
+            <td><a href="{{ .link }}" rel="noreferrer">{{ .label }}</a></td>
             <td>{{ .description }}</td>
           </tr>
           {{ end }}
@@ -76,14 +76,15 @@
           </ul>
         </div>
         {{ end }}
-        {{ with .lineage }}
-        <div class="feed-lineage">
-          <div class="feed-lineage-title">Discovered via</div>
-          <ul class="feed-lineage-list">
+        {{ with .origin }}
+        <div class="feed-origin">
+          <div class="feed-origin-title">Discovered via</div>
+          <ul class="feed-origin-list">
             {{ range . }}
             <li>
-              {{ if eq .type "meta" }}Embedded via <code>&lt;link&gt;</code> meta tag on{{ else if eq .type "listed" }}Listed on{{ end }}
-              <a href="https://{{ .page }}">{{ .page }}</a>
+              {{ if eq .type "meta" }}Embedded via <code>&lt;link&gt;</code> meta tag on
+              {{ else if eq .type "listed" }}Listed on{{ end }}
+              <a href="https://{{ .url }}">{{ .url }}</a>
             </li>
             {{ end }}
           </ul>

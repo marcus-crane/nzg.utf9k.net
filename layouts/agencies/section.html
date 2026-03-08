@@ -16,11 +16,13 @@
         <a href="{{ .RelPermalink }}">
           <div class="agency-name">{{ .Title }}</div>
           <div class="agency-url">{{ .Params.domain }}</div>
-          {{ if $feeds }}
           <div class="agency-meta">
-            {{ len $feeds }} feeds{{ with $wafCount }} · {{ . }} restricted{{ end }}
+            {{ if $feeds }}
+            {{ len $feeds }} feed{{ if gt $feeds 1 }}s{{ end }}{{ with $wafCount }} · {{ . }} restricted{{ end }}
+            {{ else }}
+            This agency does not appear to offer any feeds
+            {{ end }}
           </div>
-          {{ end }}
         </a>
       </article>
     {{ end }}

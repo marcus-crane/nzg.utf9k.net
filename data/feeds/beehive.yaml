@@ -1,0 +1,36 @@
+- name: All Site Updates
+  url: https://www.beehive.govt.nz/rss.xml
+  format: rss2
+  status: live
+  waf: imperva
+  date_added: "2026-03-08"
+  origin:
+    - type: listed
+      url: https://www.beehive.govt.nz/feeds
+- name: All Speeches
+  url: https://www.beehive.govt.nz/speeches/feed
+  format: rss2
+  status: live
+  waf: imperva
+  date_added: "2026-03-08"
+  origin:
+    - type: listed
+      url: https://www.beehive.govt.nz/feeds
+- name: All Releases
+  url: https://www.beehive.govt.nz/releases/feed
+  format: rss2
+  status: live
+  waf: imperva
+  date_added: "2026-03-08"
+  origin:
+    - type: listed
+      url: https://www.beehive.govt.nz/feeds
+- name: All Features
+  url: https://www.beehive.govt.nz/features/feed
+  format: rss2
+  status: live
+  waf: imperva
+  date_added: "2026-03-08"
+  origin:
+    - type: listed
+      url: https://www.beehive.govt.nz/feeds
