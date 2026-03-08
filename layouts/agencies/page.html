@@ -3,7 +3,8 @@
 {{ $feeds := index site.Data.feeds $slug }}
 <main class="container">
   <h1 class="page-title">{{ .Title }}</h1>
-  <p class="page-url"><a href="https://{{ .Params.domain }}">{{ .Params.domain }}</a></p>
+  <p class="page-url"><a href="{{ if .Params.canonical }}{{ .Params.canonical }}{{ else }}https://{{ .Params.domain }}{{ end }}"
+>{{ .Params.domain }}</a></p>
 
   {{ with .Content }}<div>{{ . }}</div>{{ end }}
 

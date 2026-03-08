@@ -16,7 +16,7 @@
         <div class="agency-name">
           <a href="{{ .RelPermalink }}">{{ .Title }}</a>
         </div>
-        <div class="agency-url">{{ .Params.domain }}</div>
+      <div class="agency-url"><a href="{{ if .Params.canonical }}{{ .Params.canonical }}{{ else }}{{ .Params.domain }}{{ end }}">{{ .Params.domain }}</a></div>
         <div class="agency-meta">
           <div><span class="feed-detail-label">Feeds</span> 
           {{ if $feeds }}
