@@ -39,6 +39,31 @@
         </tbody>
       </table>
     </details>
+    
+    <form role="search">
+      <fieldset role="group">
+        <input type="text" name="Search" placeholder="Search by feed name..." aria-label="Text">
+        <select name="feed-restrictions" aria="Filter by feed restrictions...">
+          <option selected value="all">
+            All restrictions
+          </option>
+          <option value="none">
+            Unrestricted
+          </option>
+          {{ range sort site.Data.wafs "label" }}
+          <option>{{ .label }}</option>
+          {{ end }}
+        </select>
+        <select name="feed-status" aria-label="Filter by feed status...">
+          <option selected value="all">
+            All statuses
+          </option>
+          {{ range sort site.Data.statuses "key" }}
+          <option>{{ .label }}</option>
+          {{ end }}
+        </select>
+      </fieldset>
+    </form>
 
     {{ range $feeds }}
       {{ $format := index (where site.Data.formats "key" .format) 0 }}
