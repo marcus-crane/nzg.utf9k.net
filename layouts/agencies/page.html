@@ -119,9 +119,15 @@
           <ul class="feed-origin-list">
             {{ range . }}
             <li>
-              {{ if eq .type "meta" }}Embedded via <code>&lt;link&gt;</code> meta tag on
-              {{ else if eq .type "listed" }}Listed on{{ end }}
-              <a href="https://{{ .url }}">{{ .url }}</a>
+            {{ if eq .type "meta" }}
+              Embedded via <code>&lt;link&gt;</code> meta tag on <a href="https://{{ .url }}">{{ .url }}</a>
+            {{ else if eq .type "listed" }}
+              Listed at <a href="https://{{ .url }}">{{ .url }}</a>
+            {{ else if eq .type "guessed" }}
+              Guessed via URL manipulation
+            {{ else }}
+              Undocumented method
+            {{ end }}
             </li>
             {{ end }}
           </ul>
