@@ -17,6 +17,7 @@ jobs:
         with:
           hugo-version: 'latest'
           extended: true
+      - run: hugo
       - name: Publish to Bunny Edge CDN
         uses: ayeressian/bunnycdn-storage-deploy@v2.4.1
         with:
