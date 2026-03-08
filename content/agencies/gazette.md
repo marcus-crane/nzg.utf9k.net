@@ -2,6 +2,6 @@
 title: New Zealand Gazette
 domain: gazette.govt.nz
 canonical: https://gazette.govt.nz/
-framework: ibm-notes
+framework: laravel
 waf: imperva
 ---
