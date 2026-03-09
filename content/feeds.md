@@ -1,5 +1,5 @@
 ---
-title: RSS Catalogue
+title: Feed Catalogue
 description: Every feed that has been catalogued so far
-layout: catalogue
+layout: feeds
 ---
