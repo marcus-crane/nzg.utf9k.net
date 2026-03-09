@@ -1,0 +1,6 @@
+- key: search
+  label: Search
+  description: This feed is constructed from search parameters. Visit the linked page to build your own feed.
+- key: access-required
+  label: Access Required
+  description: This feed exists but requires access. Visit the linked page for instructions on how to subscribe.

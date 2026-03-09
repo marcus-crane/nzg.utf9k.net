@@ -294,6 +294,15 @@ main h2 {
   color: #C0392B;
 }
 
+.feed-type {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.02em;
+  margin-left: auto;
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
 .feed-url {
   font-size: 0.6875rem;
   font-family: var(--mono);

@@ -1,0 +1,16 @@
+- name: Select Committee Reports
+  url: https://selectcommittees.parliament.nz/rss?set=Reports
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://selectcommittees.parliament.nz/reports
+- name: Business Committee Determinations
+  url: https://selectcommittees.parliament.nz/rss?set=Determinations
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://selectcommittees.parliament.nz/business-committee-determinations

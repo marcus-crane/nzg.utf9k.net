@@ -1,0 +1,8 @@
+- name: Oral Questions
+  url: https://bills.parliament.nz/rss?set=OralQuestion
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://bills.parliament.nz/oral-questions

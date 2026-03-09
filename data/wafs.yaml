@@ -7,6 +7,9 @@
 - key: imperva
   label: Imperva
   link: https://www.imperva.com/products/web-application-firewall-waf/
+- key: radware
+  label: Radware
+  link: https://www.radware.com/
 - key: redshield
   label: RedShield
   link: https://www.kordia.co.nz/redshield

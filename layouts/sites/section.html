@@ -4,9 +4,23 @@
   <p class="page-subtitle">{{ .Params.description }}</p>
   <p class="page-description">{{ .Content }}</p>
 
-  <div class="grid">
-    {{ range sort .Pages ".Slug" }}
-      {{ $key := replace .Slug "." "-" }}
+  {{ $entries := slice }}
+  {{ range .Pages }}
+    {{ $parts := split .Slug "." }}
+    {{ $parent := printf "%s.%s" (index $parts (sub (len $parts) 2)) (index $parts (sub (len $parts) 1)) }}
+    {{ $entries = $entries | append (dict "sortKey" (printf "%s|%s" $parent .Slug) "parent" $parent "page" .) }}
+  {{ end }}
+  {{ $currentParent := "" }}
+  {{ range sort $entries "sortKey" }}
+    {{ $parent := .parent }}
+    {{ if ne $parent $currentParent }}
+      {{ if ne $currentParent "" }}</div>{{ end }}
+      {{ $currentParent = $parent }}
+      <h2>{{ $parent }}</h2>
+      <div class="grid">
+    {{ end }}
+      {{ $p := .page }}
+      {{ $key := replace $p.Slug "." "-" }}
       {{ $feeds := index site.Data.feeds $key }}
       {{ $wafCount := 0 }}
       {{ if $feeds }}
@@ -14,19 +28,19 @@
       {{ end }}
       <article>
         <div class="site-name">
-          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          <a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>
         </div>
-      <div class="site-url"><a href="{{ .Params.domain }}">{{ .Slug }}</a></div>
+      <div class="site-url"><a href="{{ $p.Params.domain }}">{{ $p.Slug }}</a></div>
         <div class="site-meta">
-          <div><span class="feed-detail-label">Feeds</span> 
+          <div><span class="feed-detail-label">Feeds</span>
           {{ if $feeds }}
-          <a href="{{ .RelPermalink }}">{{ len $feeds }}</a>
+          <a href="{{ $p.RelPermalink }}">{{ len $feeds }}</a>
           {{ else }}
           0
           {{ end }}
           </div>
           <div><span class="feed-detail-label">Firewall</span>
-          {{ with .Params.waf }}
+          {{ with $p.Params.waf }}
           {{ $waf := index (where site.Data.wafs "key" .) 0 }}
           <a href="{{ $waf.link }}">{{ $waf.label }}</a>
           {{ else }}
@@ -34,7 +48,7 @@
           {{ end }}
           </div>
           <div><span class="feed-detail-label">Framework</span>
-          {{ with .Params.framework }}
+          {{ with $p.Params.framework }}
           {{ $framework := index (where site.Data.frameworks "key" .) 0 }}
           <a href="{{ $framework.link }}">{{ $framework.label }}</a>
           {{ else }}
@@ -43,7 +57,7 @@
           </div>
         </div>
       </article>
-    {{ end }}
-  </div>
+  {{ end }}
+  {{ if ne $currentParent "" }}</div>{{ end }}
 </main>
 {{ end }}

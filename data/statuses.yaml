@@ -10,6 +10,3 @@
 - key: dead
   label: Dead
   description: This feed is still actively referenced by the host website but does not appear to work/exist anymore.
-- key: access-required
-  label: Access Required
-  description: This feed could not be verified as access would be needed to verify that it is still active.

@@ -1,7 +1,7 @@
 - name: Gazette Search
   url: https://gazette.govt.nz/find-a-notice#RSS_feed
   format: rss2
-  status: access-required
+  type: search
   date_added: "2026-03-08"
   origin:
     - type: listed

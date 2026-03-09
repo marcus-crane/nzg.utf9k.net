@@ -52,6 +52,13 @@
             <td>{{ .description }}</td>
           </tr>
           {{ end }}
+          <tr class="legend-group"><th colspan="2">Type</th></tr>
+          {{ range site.Data.types }}
+          <tr>
+            <td><span class="feed-type feed-type--{{ .key }}">{{ .label }}</span></td>
+            <td>{{ .description }}</td>
+          </tr>
+          {{ end }}
           <tr class="legend-group"><th colspan="2">Format</th></tr>
           {{ range site.Data.formats }}
           <tr>
@@ -84,24 +91,40 @@
           {{ range sort site.Data.statuses "key" }}
           <option value="{{ .key }}">{{ .label }}</option>
           {{ end }}
+          {{ range sort site.Data.types "key" }}
+          <option value="{{ .key }}">{{ .label }}</option>
+          {{ end }}
         </select>
       </fieldset>
     </form>
 
     {{ range $feeds }}
       {{ $format := index (where site.Data.formats "key" .format) 0 }}
-      {{ $status := index (where site.Data.statuses "key" .status) 0 }}
       {{ $wafRestriction := "none" }}
       {{ with .waf }}
       {{ $wafRestriction = . }}
       {{ end }}
+      {{ $feedType := .type | default "" }}
+      {{ $feedStatus := .status | default "" }}
 
-    <article class="feed-card" data-feed-name="{{ .name }}" data-feed-status="{{ .status }}" data-feed-waf="{{ $wafRestriction }}">
+    <article class="feed-card" data-feed-name="{{ .name }}" data-feed-status="{{ $feedStatus }}" data-feed-type="{{ $feedType }}" data-feed-waf="{{ $wafRestriction }}">
         <div class="feed-header">
           <span class="feed-name">{{ .name }}</span>
-          <span class="feed-status feed-status--{{ .status }}">{{ $status.label }}</span>
+          {{ if $feedType }}
+            {{ $typeData := index (where site.Data.types "key" $feedType) 0 }}
+            <span class="feed-type feed-type--{{ $feedType }}">{{ $typeData.label }}</span>
+          {{ else }}
+            {{ $status := index (where site.Data.statuses "key" $feedStatus) 0 }}
+            <span class="feed-status feed-status--{{ $feedStatus }}">{{ $status.label }}</span>
+          {{ end }}
         </div>
+        {{ if eq $feedType "search" }}
+        <div class="feed-url"><a href="{{ .url }}">Build your own feed</a></div>
+        {{ else if eq $feedType "access-required" }}
+        <div class="feed-url"><a href="{{ .url }}">See instructions for access</a></div>
+        {{ else }}
         <div class="feed-url"><a href="{{ .url }}">{{ .url }}</a></div>
+        {{ end }}
         <div class="feed-details">
           <div><span class="feed-detail-label">Format</span> {{ $format.label }}</div>
           {{ with .date_added }}
@@ -162,7 +185,8 @@
         const cardWaf = card.dataset.feedWaf;
 
         const matchesName = !query || name.includes(query);
-        const matchesStatus = status === 'all' || cardStatus === status;
+        const cardType = card.dataset.feedType;
+        const matchesStatus = status === 'all' || cardStatus === status || cardType === status;
         const matchesWaf = waf === 'all' || cardWaf === waf;
 
         card.style.display = (matchesName && matchesStatus && matchesWaf) ? '' : 'none';
