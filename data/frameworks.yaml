@@ -1,3 +1,6 @@
+- key: blazor
+  label: Blazor
+  link: https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor
 - key: drupal
   label: Drupal
   link: https://new.drupal.org/home
