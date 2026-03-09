@@ -1,3 +1,35 @@
+- name: Daily Progress in the House
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/1667
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/daily-progress-in-the-house/
+- name: Submissions and Advice
+  url: https://www3.parliament.nz/en/virtuallisting/rss/4466
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/sc/submissions-and-advice/
+- name: Make a Submission
+  url: https://www3.parliament.nz/en/submissionslisting/rss/4456
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/sc/make-a-submission/
+- name: Committee Press Releases
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/6193
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/sc/committees-press-releases/
 - name: Order Paper
   url: https://www3.parliament.nz/en/channellisting/rss/1691/92035c6e-1be3-40fb-aafa-37d4346d78cc
   format: rss2
@@ -38,3 +70,11 @@
   origin:
     - type: listed
       url: https://www3.parliament.nz/en/pb/bills-and-laws/progress-of-legislation/
+- name: Business Committee Determinations Archive
+  url: https://www3.parliament.nz/en/channellisting/rss/19563/486ced38-bbb5-4198-b814-a7bcc21e07fa
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/sc/business-committee-determinations-archive/
