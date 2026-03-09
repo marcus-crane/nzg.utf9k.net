@@ -1,5 +1,5 @@
 - name: Recently updated pages on NZ Digital government
-  url: https://www.beehive.govt.nz/home/rss
+  url: https://www.digital.govt.nz/home/rss
   format: rss2
   status: live
   waf: imperva
@@ -8,7 +8,7 @@
     - type: meta
       url: https://www.digital.govt.nz
 - name: Blog
-  url: https://www.beehive.govt.nz/blog/rss
+  url: https://www.digital.govt.nz/blog/rss
   format: rss2
   status: live
   waf: imperva

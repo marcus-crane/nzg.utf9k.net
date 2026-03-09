@@ -13,16 +13,16 @@
         {{ range $feeds }}{{ if .waf }}{{ $wafCount = add $wafCount 1 }}{{ end }}{{ end }}
       {{ end }}
       <article>
-        <div class="agency-name">
+        <div class="site-name">
           <a href="{{ .RelPermalink }}">{{ .Title }}</a>
         </div>
-      <div class="agency-url"><a href="{{ if .Params.canonical }}{{ .Params.canonical }}{{ else }}{{ .Params.domain }}{{ end }}">{{ .Params.domain }}</a></div>
-        <div class="agency-meta">
+      <div class="site-url"><a href="{{ if .Params.canonical }}{{ .Params.canonical }}{{ else }}{{ .Params.domain }}{{ end }}">{{ .Params.domain }}</a></div>
+        <div class="site-meta">
           <div><span class="feed-detail-label">Feeds</span> 
           {{ if $feeds }}
-          <a href="{{ .RelPermalink }}">{{ len $feeds }} total{{ if gt $feeds 1 }}s{{ end }}{{ with $wafCount }} · {{ . }} restricted{{ end }}</a>
+          <a href="{{ .RelPermalink }}">{{ len $feeds }}</a>
           {{ else }}
-          None
+          0
           {{ end }}
           </div>
           {{ with .Params.waf }}

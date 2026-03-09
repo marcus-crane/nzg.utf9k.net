@@ -159,26 +159,26 @@ main h2 {
   color: inherit;
 }
 
-/* Agency list */
-.agency-name {
+/* Site list */
+.site-name {
   font-size: 0.9375rem;
   font-weight: 700;
   color: var(--deep-blue);
   margin-bottom: 0.125rem;
 }
 
-.agency-url {
+.site-url {
   font-size: 0.6875rem;
   font-family: var(--mono);
   color: var(--muted);
   margin-bottom: 0.5rem;
 }
 
-.agency-url:last-child {
+.site-url:last-child {
   margin-bottom: 0;
 }
 
-.agency-meta {
+.site-meta {
   font-size: 0.75rem;
   color: var(--muted-text);
 }
