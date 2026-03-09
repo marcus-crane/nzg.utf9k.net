@@ -404,7 +404,7 @@ main h2 {
 }
 
 .feed-origin-list li::before {
-  content: "↳ ";
+  content: "→ ";
   color: var(--muted-lighter);
 }
 

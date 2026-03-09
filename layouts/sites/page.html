@@ -108,20 +108,16 @@
             <div><span class="feed-detail-label">Added</span> {{ time.AsTime . | time.Format "2 January 2006" }}</div>
           {{ end }}
         </div>
-        {{ if .date_added }}
+        {{ with .history }}
         <div class="feed-history">
           <div class="feed-history-title">History</div>
           <ul class="feed-history-list">
-            {{ range .history }}
+            {{ range . }}
             <li>
               <span class="feed-history-date">{{ time.AsTime .date | time.Format "2 January 2006" }}</span>
               <span class="feed-history-note">{{ .note }}</span>
             </li>
             {{ end }}
-            <li>
-              <span class="feed-history-date">{{ time.AsTime .date_added | time.Format "2 January 2006" }}</span>
-              <span class="feed-history-note">Feed added</span>
-            </li>
           </ul>
         </div>
         {{ end }}
