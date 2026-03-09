@@ -2,7 +2,6 @@
   url: https://www.digital.govt.nz/home/rss
   format: rss2
   status: live
-  waf: imperva
   date_added: "2026-03-08"
   origin:
     - type: meta
@@ -11,7 +10,6 @@
   url: https://www.digital.govt.nz/blog/rss
   format: rss2
   status: live
-  waf: imperva
   date_added: "2026-03-08"
   origin:
     - type: guessed
@@ -19,7 +17,6 @@
   url: https://www.digital.govt.nz/news/rss
   format: rss2
   status: live
-  waf: imperva
   date_added: "2026-03-08"
   origin:
     - type: guessed
@@ -27,7 +24,6 @@
   url: https://www.digital.govt.nz/voice-of-the-gcdo/rss
   format: rss2
   status: live
-  waf: imperva
   date_added: "2026-03-08"
   origin:
     - type: guessed
@@ -35,7 +31,6 @@
   url: https://www.digital.govt.nz/newsrss
   format: rss2
   status: dead
-  waf: imperva
   date_added: "2026-03-08"
   origin:
     - type: meta

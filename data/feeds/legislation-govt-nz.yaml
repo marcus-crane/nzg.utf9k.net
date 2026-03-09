@@ -1,7 +1,6 @@
 - name: All legislation
   url: https://www.legislation.govt.nz/learn-more/find-and-use-legislation/keep-up-to-date-with-legislation/
   format: rss2
-  waf: awswaf
   status: access-required
   date_added: "2026-03-09"
   origin:
@@ -10,7 +9,6 @@
 - name: All Acts
   url: https://www.legislation.govt.nz/learn-more/find-and-use-legislation/keep-up-to-date-with-legislation/
   format: rss2
-  waf: awswaf
   status: access-required
   date_added: "2026-03-09"
   origin:
@@ -19,7 +17,6 @@
 - name: All Bills
   url: https://www.legislation.govt.nz/learn-more/find-and-use-legislation/keep-up-to-date-with-legislation/
   format: rss2
-  waf: awswaf
   status: access-required
   date_added: "2026-03-09"
   origin:
@@ -28,7 +25,6 @@
 - name: All secondary legislation
   url: https://www.legislation.govt.nz/learn-more/find-and-use-legislation/keep-up-to-date-with-legislation/
   format: rss2
-  waf: awswaf
   status: access-required
   date_added: "2026-03-09"
   origin:

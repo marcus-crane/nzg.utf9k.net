@@ -1,7 +1,7 @@
 ---
 title: Reserve Bank of New Zealand
-domain: rbnz.govt.nz
-canonical: https://www.rbnz.govt.nz/
+slug: rbnz.govt.nz
+domain: https://www.rbnz.govt.nz/
 waf: cloudflare
 ---
 

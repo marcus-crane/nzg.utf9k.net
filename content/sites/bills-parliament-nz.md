@@ -1,6 +1,6 @@
 ---
 title: New Zealand Parliament - Bills
-domain: bills.parliament.nz
-canonical: https://bills.parliament.nz/
+slug: bills.parliament.nz
+domain: https://bills.parliament.nz/
 framework: blazor
 ---

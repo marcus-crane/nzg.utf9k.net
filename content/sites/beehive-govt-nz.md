@@ -1,7 +1,7 @@
 ---
 title: Beehive
-domain: beehive.govt.nz
-canonical: https://www.beehive.govt.nz/
+slug: beehive.govt.nz
+domain: https://www.beehive.govt.nz/
 framework: drupal
 waf: imperva
 ---

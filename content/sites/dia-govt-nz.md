@@ -1,7 +1,7 @@
 ---
 title: Department of Internal Affairs
-domain: dia.govt.nz
-canonical: https://www.dia.govt.nz/
+slug: dia.govt.nz
+domain: https://www.dia.govt.nz/
 framework: ibm-notes
 waf: imperva
 ---

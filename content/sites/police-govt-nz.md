@@ -1,7 +1,7 @@
 ---
 title: New Zealand Police
-domain: police.govt.nz
-canonical: https://www.police.govt.nz/
+slug: police.govt.nz
+domain: https://www.police.govt.nz/
 framework: drupal
 waf: redshield
 ---
