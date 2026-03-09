@@ -1,6 +1,6 @@
 ---
-title: New Zealand Parliament - Parliamentary Business
-slug: www3.parliament.nz
-domain: https://www3.parliament.nz/
+title: New Zealand Parliament - Home
+slug: www.parliament.nz
+domain: https://www.parliament.nz/
 waf: radware
 ---

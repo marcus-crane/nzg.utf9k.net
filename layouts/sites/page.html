@@ -153,7 +153,7 @@
             {{ if eq .type "meta" }}
               Embedded via <code>&lt;link&gt;</code> meta tag on <a href="https://{{ .url }}">{{ .url }}</a>
             {{ else if eq .type "listed" }}
-              Listed at <a href="https://{{ .url }}">{{ .url }}</a>
+              Listed at <a href="{{ .url }}">{{ .url }}</a>
             {{ else if eq .type "guessed" }}
               Guessed via URL manipulation
             {{ else }}
