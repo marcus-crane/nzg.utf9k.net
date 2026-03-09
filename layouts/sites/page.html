@@ -120,7 +120,7 @@
         </div>
         {{ if eq $feedType "search" }}
         <div class="feed-url"><a href="{{ .url }}">Build your own feed</a></div>
-        {{ else if eq $feedType "access-required" }}
+        {{ else if eq $feedType "authenticated" }}
         <div class="feed-url"><a href="{{ .url }}">See instructions for access</a></div>
         {{ else }}
         <div class="feed-url"><a href="{{ .url }}">{{ .url }}</a></div>
