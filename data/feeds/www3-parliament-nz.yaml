@@ -1,16 +1,24 @@
-- name: Select Committee Reports
-  url: https://selectcommittees.parliament.nz/rss?set=Reports
+- name: Order Paper
+  url: https://www3.parliament.nz/en/channellisting/rss/1691/92035c6e-1be3-40fb-aafa-37d4346d78cc
   format: rss2
   status: live
   date_added: "2026-03-09"
   origin:
     - type: listed
-      url: https://selectcommittees.parliament.nz/reports
-- name: Business Committee Determinations
-  url: https://selectcommittees.parliament.nz/rss?set=Determinations
+      url: https://www3.parliament.nz/en/pb/order-paper-questions/order-paper/
+- name: Business Statement
+  url: https://www3.parliament.nz/en/channellisting/rss/3819/10f43046-1616-452e-8019-6f35b54d9126
   format: rss2
   status: live
   date_added: "2026-03-09"
   origin:
     - type: listed
-      url: https://selectcommittees.parliament.nz/business-committee-determinations
+      url: https://www3.parliament.nz/en/pb/order-paper-questions/business-statement/
+- name: List of Oral Questions Archive
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/3762
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/order-paper-questions/list-of-oral-questions-archive/
