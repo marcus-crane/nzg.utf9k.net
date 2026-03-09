@@ -30,3 +30,11 @@
   origin:
     - type: listed
       url: https://bills.parliament.nz/members-bills-ballots
+- name: Current Papers
+  url: https://bills.parliament.nz/rss?set=Papers
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://bills.parliament.nz/papers
