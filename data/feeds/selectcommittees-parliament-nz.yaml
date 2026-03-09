@@ -1,4 +1,4 @@
-- name: Select Committee Reports
+- name: Reports
   url: https://selectcommittees.parliament.nz/rss?set=Reports
   format: rss2
   status: live

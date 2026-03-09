@@ -22,3 +22,19 @@
   origin:
     - type: listed
       url: https://www3.parliament.nz/en/pb/order-paper-questions/list-of-oral-questions-archive/
+- name: Schedule of Divided Bills
+  url: https://www3.parliament.nz/en/channellisting/rss/2431/ea2e4aa8-87bd-474c-965d-b47e5daff0e3
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/bills-and-laws/schedule-of-divided-bills/
+- name: Progress of Legislation
+  url: https://www3.parliament.nz/en/channellisting/rss/3761/bff3fed1-db2e-499b-8de2-f84d64265663
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/bills-and-laws/progress-of-legislation/
