@@ -1,10 +1,9 @@
 {{ define "main" }}
-{{ $slug := .File.ContentBaseName }}
-{{ $feeds := index site.Data.feeds $slug }}
+{{ $key := replace .Slug "." "-" }}
+{{ $feeds := index site.Data.feeds $key }}
 <main class="container">
   <h1 class="page-title">{{ .Title }}</h1>
-  <p class="page-url"><a href="{{ if .Params.canonical }}{{ .Params.canonical }}{{ else }}https://{{ .Params.domain }}{{ end }}"
->{{ .Params.domain }}</a></p>
+  <p class="page-url"><a href="{{ .Params.domain }}">{{ .Slug }}</a></p>
 
   {{ if .Content }}
     <div>{{ .Content }}</div>
@@ -14,9 +13,33 @@
     {{ end }}
   {{ end }}
 
+  {{ if or .Params.framework .Params.waf }}
+  <section class="page-section">
+    <h2 class="section-heading">Metadata</h2>
+    <div class="metadata-list">
+      <div><span class="feed-detail-label">Framework</span>
+      {{ with .Params.framework }}
+        {{ $framework := index (where site.Data.frameworks "key" .) 0 }}
+        <a href="{{ $framework.link }}">{{ $framework.label }}</a>
+      {{ else }}
+        None / Unknown
+      {{ end }}
+      </div>
+      <div><span class="feed-detail-label">Firewall</span>
+      {{ with .Params.waf }}
+        {{ $waf := index (where site.Data.wafs "key" .) 0 }}
+        <a href="{{ $waf.link }}" rel="noreferrer">{{ $waf.label }}</a>
+      {{ else }}
+        None / Unknown
+      {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ end }}
+
   {{ if $feeds }}
-  <section class="feeds-section">
-    <h2 class="feeds-heading">Feeds</h2>
+  <section class="page-section">
+    <h2 class="section-heading">Feeds</h2>
 
     <details class="legend">
       <summary>Legend</summary>
@@ -34,13 +57,6 @@
           <tr>
             <td><a href="{{ .spec }}">{{ .label }}</a></td>
             <td>{{ .label }} syndication format</td>
-          </tr>
-          {{ end }}
-          <tr class="legend-group"><th colspan="2">Firewall</th></tr>
-          {{ range site.Data.wafs }}
-          <tr>
-            <td><a href="{{ .link }}" rel="noreferrer">{{ .label }}</a></td>
-            <td>This website is protected by {{ .label }} so this feed may not be reachable by hosted RSS readers or other automation.</td>
           </tr>
           {{ end }}
         </tbody>
@@ -88,10 +104,6 @@
         <div class="feed-url"><a href="{{ .url }}">{{ .url }}</a></div>
         <div class="feed-details">
           <div><span class="feed-detail-label">Format</span> {{ $format.label }}</div>
-          {{ with .waf }}
-            {{ $waf := index (where site.Data.wafs "key" .) 0 }}
-            <div><span class="feed-detail-label">Firewall</span> {{ $waf.label }}</div>
-          {{ end }}
           {{ with .date_added }}
             <div><span class="feed-detail-label">Added</span> {{ time.AsTime . | time.Format "2 January 2006" }}</div>
           {{ end }}

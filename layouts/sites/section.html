@@ -5,9 +5,9 @@
   <p class="page-description">{{ .Content }}</p>
 
   <div class="grid">
-    {{ range sort .Pages ".Params.domain" }}
-      {{ $slug := .File.ContentBaseName }}
-      {{ $feeds := index site.Data.feeds $slug }}
+    {{ range sort .Pages ".Slug" }}
+      {{ $key := replace .Slug "." "-" }}
+      {{ $feeds := index site.Data.feeds $key }}
       {{ $wafCount := 0 }}
       {{ if $feeds }}
         {{ range $feeds }}{{ if .waf }}{{ $wafCount = add $wafCount 1 }}{{ end }}{{ end }}
@@ -16,7 +16,7 @@
         <div class="site-name">
           <a href="{{ .RelPermalink }}">{{ .Title }}</a>
         </div>
-      <div class="site-url"><a href="{{ if .Params.canonical }}{{ .Params.canonical }}{{ else }}{{ .Params.domain }}{{ end }}">{{ .Params.domain }}</a></div>
+      <div class="site-url"><a href="{{ .Params.domain }}">{{ .Slug }}</a></div>
         <div class="site-meta">
           <div><span class="feed-detail-label">Feeds</span> 
           {{ if $feeds }}

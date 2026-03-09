@@ -232,18 +232,27 @@ main h2 {
   padding-top: 0.5rem;
 }
 
-/* Feeds */
-.feeds-section {
+/* Page sections */
+.page-section {
   margin-top: 2rem;
 }
 
-.feeds-heading {
+.section-heading {
   font-size: 1.125rem;
   color: var(--deep-blue);
   letter-spacing: -0.01em;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--pico-card-border-color);
+}
+
+/* Metadata list */
+.metadata-list {
+  font-size: 0.75rem;
+  color: var(--muted-text);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 /* Feed cards */
