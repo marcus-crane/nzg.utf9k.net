@@ -78,3 +78,27 @@
   origin:
     - type: listed
       url: https://www3.parliament.nz/en/pb/sc/business-committee-determinations-archive/
+- name: Monthly Economic Review
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/23383
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/library-research-papers/monthly-economic-review/
+- name: Research Papers
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/23384
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/library-research-papers/research-papers/
+- name: Research Papers - Pre-2018
+  url: https://www3.parliament.nz/en/channellisting/rss/3549/7f0a5c68-1fb2-4579-a83d-1d24fc75165c
+  format: rss2
+  status: stale
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/research-papers/
