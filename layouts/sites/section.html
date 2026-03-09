@@ -25,12 +25,14 @@
           0
           {{ end }}
           </div>
+          <div><span class="feed-detail-label">Firewall</span>
           {{ with .Params.waf }}
           {{ $waf := index (where site.Data.wafs "key" .) 0 }}
-          <div><span class="feed-detail-label">Firewall</span>
           <a href="{{ $waf.link }}">{{ $waf.label }}</a>
-          </div>
+          {{ else }}
+          None / Unknown
           {{ end }}
+          </div>
           <div><span class="feed-detail-label">Framework</span>
           {{ with .Params.framework }}
           {{ $framework := index (where site.Data.frameworks "key" .) 0 }}
