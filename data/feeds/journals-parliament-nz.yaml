@@ -1,0 +1,8 @@
+- name: Weekly Journals
+  url: https://journals.parliament.nz/rss?set=Journals
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://journals.parliament.nz/weekly-journals

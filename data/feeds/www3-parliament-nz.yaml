@@ -102,3 +102,75 @@
   origin:
     - type: listed
       url: https://www3.parliament.nz/en/pb/research-papers/
+- name: Speakers' Rulings archive
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/12067
+  format: rss2
+  status: stale
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/parliamentary-rules/speakers-rulings-archive/
+- name: Sessional Orders archive
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/217660
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/parliamentary-rules/sessional-orders-archive/
+- name: PS and OC Administered Secondary Legislation
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/241573
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/parliamentary-rules/ps-and-oc-administered-secondary-legislation/
+- name: RA and DIA Administered Secondary Legislation
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/241574
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/parliamentary-rules/ra-and-dia-administered-secondary-legislation/
+- name: Parliamentary Service
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/241576
+  format: rss2
+  status: stale
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/parliamentary-rules/parliamentary-service/
+- name: Office of the Clerk
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/241577
+  format: rss2
+  status: stale
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/parliamentary-rules/office-of-the-clerk/
+- name: Department of Internal Affairs
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/241579
+  format: rss2
+  status: stale
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/parliamentary-rules/department-of-internal-affairs/
+- name: Remuneration Authority
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/241578
+  format: rss2
+  status: stale
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/parliamentary-rules/remuneration-authority/
+- name: Weekly Journals Archive
+  url: https://www3.parliament.nz/en/channellisting/rss/4184/e83ef6fb-3141-4180-b973-5cb55056bcb1
+  format: rss2
+  status: live
+  date_added: "2026-03-09"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/pb/journals-of-the-house/weekly-journals-archive
