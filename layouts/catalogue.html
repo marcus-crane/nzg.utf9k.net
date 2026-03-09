@@ -1,0 +1,160 @@
+{{ define "main" }}
+{{ $allFeeds := slice }}
+{{ range $key, $feeds := site.Data.feeds }}
+  {{ $sitePage := false }}
+  {{ $siteSlug := replace $key "-" "." }}
+  {{ range site.RegularPages }}
+    {{ if eq .Slug $siteSlug }}
+      {{ $sitePage = . }}
+    {{ end }}
+  {{ end }}
+  {{ $siteTitle := $siteSlug }}
+  {{ with $sitePage }}
+    {{ $siteTitle = .Title }}
+  {{ end }}
+  {{ range $feeds }}
+    {{ $allFeeds = $allFeeds | append (merge . (dict "_site_key" $key "_site_title" $siteTitle "_site_slug" $siteSlug)) }}
+  {{ end }}
+{{ end }}
+<main class="container">
+  <h1 class="page-title">{{ .Title }} <small>({{ len $allFeeds }} feeds)</small></h1>
+
+  <h2 class="section-heading">Feeds</h2>
+
+  <details class="legend">
+    <summary>Legend</summary>
+    <table>
+      <tbody>
+        <tr class="legend-group"><th colspan="2">Status</th></tr>
+        {{ range site.Data.statuses }}
+        <tr>
+          <td><span class="feed-status feed-status--{{ .key }}">{{ .label }}</span></td>
+          <td>{{ .description }}</td>
+        </tr>
+        {{ end }}
+        <tr class="legend-group"><th colspan="2">Type</th></tr>
+        {{ range site.Data.types }}
+        <tr>
+          <td><span class="feed-type feed-type--{{ .key }}">{{ .label }}</span></td>
+          <td>{{ .description }}</td>
+        </tr>
+        {{ end }}
+        <tr class="legend-group"><th colspan="2">Format</th></tr>
+        {{ range site.Data.formats }}
+        <tr>
+          <td><a href="{{ .spec }}">{{ .label }}</a></td>
+          <td>{{ .label }} syndication format</td>
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </details>
+
+  <form role="search">
+    <fieldset role="group">
+      <input type="text" name="Search" placeholder="Search by feed name..." aria-label="Text">
+      <select name="feed-status" aria-label="Filter by feed status...">
+        <option selected value="all">
+          All statuses
+        </option>
+        {{ range sort site.Data.statuses "key" }}
+        <option value="{{ .key }}">{{ .label }}</option>
+        {{ end }}
+        {{ range sort site.Data.types "key" }}
+        <option value="{{ .key }}">{{ .label }}</option>
+        {{ end }}
+      </select>
+    </fieldset>
+  </form>
+
+  {{ range $allFeeds }}
+    {{ $format := index (where site.Data.formats "key" .format) 0 }}
+    {{ $feedType := .type | default "" }}
+    {{ $feedStatus := .status | default "" }}
+
+  <article class="feed-card" data-feed-name="{{ .name }}" data-feed-status="{{ $feedStatus }}" data-feed-type="{{ $feedType }}">
+      <div class="feed-header">
+        <span class="feed-name">{{ .name }}</span>
+        {{ $status := index (where site.Data.statuses "key" $feedStatus) 0 }}
+          <span class="feed-status feed-status--{{ $feedStatus }}">{{ $status.label }}</span>
+        {{ if $feedType }}
+          {{ $typeData := index (where site.Data.types "key" $feedType) 0 }}
+          <span class="feed-type feed-type--{{ $feedType }}">{{ $typeData.label }}</span>
+        {{ end }}
+      </div>
+      {{ if eq $feedType "search" }}
+      <div class="feed-url"><a href="{{ .url }}">Build your own feed</a></div>
+      {{ else if eq $feedType "authenticated" }}
+      <div class="feed-url"><a href="{{ .url }}">See instructions for access</a></div>
+      {{ else }}
+      <div class="feed-url"><a href="{{ .url }}">{{ .url }}</a></div>
+      {{ end }}
+      <div class="feed-details">
+        <div><span class="feed-detail-label">Site</span> <a href="/sites/{{ ._site_slug }}/">{{ ._site_title }}</a></div>
+        <div><span class="feed-detail-label">Format</span> {{ $format.label }}</div>
+        {{ with .date_added }}
+          <div><span class="feed-detail-label">Added</span> {{ time.AsTime . | time.Format "2 January 2006" }}</div>
+        {{ end }}
+      </div>
+      {{ with .history }}
+      <div class="feed-history">
+        <div class="feed-history-title">History</div>
+        <ul class="feed-history-list">
+          {{ range . }}
+          <li>
+            <span class="feed-history-date">{{ time.AsTime .date | time.Format "2 January 2006" }}</span>
+            <span class="feed-history-note">{{ .note }}</span>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+      {{ with .origin }}
+      <div class="feed-origin">
+        <div class="feed-origin-title">Discovery Method</div>
+        <ul class="feed-origin-list">
+          {{ range . }}
+          <li>
+          {{ if eq .type "meta" }}
+            Embedded via <code>&lt;link&gt;</code> meta tag on <a href="https://{{ .url }}">{{ .url }}</a>
+          {{ else if eq .type "listed" }}
+            Listed at <a href="{{ .url }}">{{ .url }}</a>
+          {{ else if eq .type "guessed" }}
+            Guessed via URL manipulation
+          {{ else }}
+            Undocumented method
+          {{ end }}
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </article>
+  {{ end }}
+
+  <script>
+    const searchInput = document.querySelector('input[name="Search"]');
+    const statusSelect = document.querySelector('select[name="feed-status"]');
+    const cards = document.querySelectorAll('.feed-card');
+
+    function filterCards() {
+      const query = searchInput.value.toLowerCase();
+      const status = statusSelect.value;
+
+      cards.forEach(card => {
+        const name = card.dataset.feedName.toLowerCase();
+        const cardStatus = card.dataset.feedStatus;
+        const cardType = card.dataset.feedType;
+
+        const matchesName = !query || name.includes(query);
+        const matchesStatus = status === 'all' || cardStatus === status || cardType === status;
+
+        card.style.display = (matchesName && matchesStatus) ? '' : 'none';
+      });
+    }
+
+    searchInput.addEventListener('input', filterCards);
+    statusSelect.addEventListener('change', filterCards);
+  </script>
+</main>
+{{ end }}
