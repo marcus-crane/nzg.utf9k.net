@@ -20,6 +20,10 @@
   <h1 class="page-title">{{ .Title }}</h1>
   <p class="page-subtitle">{{ len $allFeeds }} feeds catalogued so far</p>
 
+  {{ if .Content }}
+    <div>{{ .Content }}</div>
+  {{ end }}
+
   <h2 class="section-heading">Feeds</h2>
 
   <details class="legend">
