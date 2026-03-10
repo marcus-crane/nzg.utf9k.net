@@ -92,7 +92,7 @@
       {{ end }}
       <div class="feed-details">
         <div><span class="feed-detail-label">Site</span> <a href="/sites/{{ ._site_slug }}/">{{ ._site_title }}</a></div>
-        <div><span class="feed-detail-label">Format</span> {{ $format.label }}</div>
+        {{/* <div><span class="feed-detail-label">Format</span> {{ $format.label }}</div> */}}
         {{ with .date_added }}
           <div><span class="feed-detail-label">Added</span> {{ time.AsTime . | time.Format "2 January 2006" }}</div>
         {{ end }}
