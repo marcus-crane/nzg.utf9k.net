@@ -53,7 +53,7 @@
 
   <form role="search">
     <fieldset role="group">
-      <input type="text" name="Search" placeholder="Search by feed name..." aria-label="Text">
+      <input type="text" name="search" placeholder="Search by feed name..." aria-label="Text">
       <select name="feed-status" aria-label="Filter by feed status...">
         <option selected value="all">
           All statuses
@@ -134,7 +134,8 @@
   {{ end }}
 
   <script>
-    const searchInput = document.querySelector('input[name="Search"]');
+    const form = document.querySelector('form[role="search"]');
+    const searchInput = document.querySelector('input[name="search"]');
     const statusSelect = document.querySelector('select[name="feed-status"]');
     const cards = document.querySelectorAll('.feed-card');
 
@@ -154,8 +155,27 @@
       });
     }
 
-    searchInput.addEventListener('input', filterCards);
-    statusSelect.addEventListener('change', filterCards);
+    function updateURL() {
+      const url = new URL(window.location);
+      const search = searchInput.value;
+      const status = statusSelect.value;
+
+      if (search) { url.searchParams.set('search', search); } else { url.searchParams.delete('search'); }
+      if (status && status !== 'all') { url.searchParams.set('status', status); } else { url.searchParams.delete('status'); }
+
+      history.replaceState(null, '', url);
+    }
+
+    form.addEventListener('submit', e => e.preventDefault());
+
+    searchInput.addEventListener('input', () => { filterCards(); updateURL(); });
+    statusSelect.addEventListener('change', () => { filterCards(); updateURL(); });
+
+    // On load: read query params and apply
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('search')) searchInput.value = params.get('search');
+    if (params.has('status')) statusSelect.value = params.get('status');
+    filterCards();
   </script>
 </main>
 {{ end }}

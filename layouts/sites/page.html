@@ -72,8 +72,8 @@
     
     <form role="search">
       <fieldset role="group">
-        <input type="text" name="Search" placeholder="Search by feed name..." aria-label="Text">
-        <select name="feed-restrictions" aria="Filter by feed restrictions...">
+        <input type="text" name="search" placeholder="Search by feed name..." aria-label="Text">
+        <select name="restrictions" aria="Filter by feed restrictions...">
           <option selected value="all">
             All restrictions
           </option>
@@ -169,8 +169,9 @@
 
   </section>
   <script>
-    const searchInput = document.querySelector('input[name="Search"]');
-    const wafSelect = document.querySelector('select[name="feed-restrictions"]');
+    const form = document.querySelector('form[role="search"]');
+    const searchInput = document.querySelector('input[name="search"]');
+    const wafSelect = document.querySelector('select[name="restrictions"]');
     const statusSelect = document.querySelector('select[name="feed-status"]');
     const cards = document.querySelectorAll('.feed-card');
 
@@ -193,9 +194,31 @@
       });
     }
 
-    searchInput.addEventListener('input', filterCards);
-    wafSelect.addEventListener('change', filterCards);
-    statusSelect.addEventListener('change', filterCards);
+    function updateURL() {
+      const url = new URL(window.location);
+      const search = searchInput.value;
+      const waf = wafSelect.value;
+      const status = statusSelect.value;
+
+      if (search) { url.searchParams.set('search', search); } else { url.searchParams.delete('search'); }
+      if (waf && waf !== 'all') { url.searchParams.set('restrictions', waf); } else { url.searchParams.delete('restrictions'); }
+      if (status && status !== 'all') { url.searchParams.set('status', status); } else { url.searchParams.delete('status'); }
+
+      history.replaceState(null, '', url);
+    }
+
+    form.addEventListener('submit', e => e.preventDefault());
+
+    searchInput.addEventListener('input', () => { filterCards(); updateURL(); });
+    wafSelect.addEventListener('change', () => { filterCards(); updateURL(); });
+    statusSelect.addEventListener('change', () => { filterCards(); updateURL(); });
+
+    // On load: read query params and apply
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('search')) searchInput.value = params.get('search');
+    if (params.has('restrictions')) wafSelect.value = params.get('restrictions');
+    if (params.has('status')) statusSelect.value = params.get('status');
+    filterCards();
   </script>
   {{ end }}
 </main>
