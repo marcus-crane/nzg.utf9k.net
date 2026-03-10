@@ -16,7 +16,7 @@
     {{ if ne $parent $currentParent }}
       {{ if ne $currentParent "" }}</div>{{ end }}
       {{ $currentParent = $parent }}
-      <h2>{{ $parent }}</h2>
+      <h2 class="section-heading">{{ $parent }}</h2>
       <div class="grid">
     {{ end }}
       {{ $p := .page }}
