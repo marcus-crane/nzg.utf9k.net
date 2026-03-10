@@ -30,6 +30,38 @@
   origin:
     - type: listed
       url: https://www3.parliament.nz/en/pb/sc/committees-press-releases/
+- name: Speaker's Office Media Releases
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/4313
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/visit-and-learn/how-parliament-works/office-of-the-speaker/press-releases/
+- name: Office of the Clerk Media Releases
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/35188
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/footer/about-us/office-of-the-clerk/office-of-the-clerk-media-releases/
+- name: Parliamentary Service Media Releases
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/104772
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/footer/about-us/parliamentary-service/parliamentary-service-media-releases/
+- name: Parliamentary Practice in New Zealand Archive
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/199309
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/visit-and-learn/how-parliament-works/parliamentary-practice-in-new-zealand-archive/
 - name: Order Paper
   url: https://www3.parliament.nz/en/channellisting/rss/1691/92035c6e-1be3-40fb-aafa-37d4346d78cc
   format: rss2
@@ -174,3 +206,123 @@
   origin:
     - type: listed
       url: https://www3.parliament.nz/en/pb/journals-of-the-house/weekly-journals-archive
+- name: Members of Parliament
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/13825
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/mps-and-electorates/members-of-parliament
+- name: Former Members of Parliament
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/13826
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/mps-and-electorates/former-members-of-parliament/
+- name: Electorate Profiles 2020
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/59371
+  format: rss2
+  status: stale
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/mps-and-electorates/electorate-profiles
+- name: Electorate Profiles 2017
+  url: https://www3.parliament.nz/en/channellisting/rss/69025/a5819f08-d6fc-4280-b8e3-08d1971c9fda
+  format: rss2
+  status: stale
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/mps-and-electorates/historical-electorate-profiles/
+- name: Electorate Profiles 2011
+  url: https://www3.parliament.nz/en/channellisting/rss/69025/ff130632-7e12-4b2b-ba39-09d4a394c1be
+  format: rss2
+  status: stale
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/mps-and-electorates/historical-electorate-profiles/
+- name: Electorate Profiles 2005
+  url: https://www3.parliament.nz/en/channellisting/rss/69025/0b88dff4-221c-46e9-94bd-a460f4007bfc
+  format: rss2
+  status: stale
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/mps-and-electorates/historical-electorate-profiles/
+- name: Features
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/3286
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/get-involved/features/
+- name: Features
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/3286
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/get-involved/features/
+- name: Resources About Parliament
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/86770
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/visit-and-learn/resources-about-new-zealand-parliament/resources-about-parliament/
+- name: Resources About Select Committees
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/65608
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/visit-and-learn/resources-about-new-zealand-parliament/resources-about-select-committees/
+- name: Resources in EasyRead and NZSL
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/99248
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/visit-and-learn/resources-about-new-zealand-parliament/resources-in-easyread-and-nzsl/
+- name: Resources about New Zealand Parliament - Various Languages
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/99252
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/visit-and-learn/resources-about-new-zealand-parliament/resources-about-new-zealand-parliament-various-languages/
+- name: Parliament Webinars
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/59847
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/visit-and-learn/parliament-webinars/
+- name: Speeches
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/4305
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/visit-and-learn/how-parliament-works/office-of-the-speaker/speeches/
+- name: Corporate Documents
+  url: https://www3.parliament.nz/en/highvolumegenericlisting/rss/3898
+  format: rss2
+  status: live
+  date_added: "2026-03-10"
+  origin:
+    - type: listed
+      url: https://www3.parliament.nz/en/visit-and-learn/how-parliament-works/office-of-the-speaker/corporate-documents/
