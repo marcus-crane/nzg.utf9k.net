@@ -1,0 +1,19 @@
+{{- if .AlertType -}}
+  {{- $type := .AlertType | lower -}}
+  {{- $title := or .AlertTitle (title .AlertType) -}}
+  {{- $icons := dict
+    "note"      "icons/info.html"
+    "tip"       "icons/lightbulb.html"
+    "important" "icons/message-square-warning.html"
+    "warning"   "icons/triangle-alert.html"
+    "caution"   "icons/octagon-alert.html"
+  -}}
+  <div class="alert alert-{{ $type }}">
+    <p class="alert-title">{{ partial (index $icons $type) . }} {{ $title }}</p>
+    {{ .Text }}
+  </div>
+{{- else -}}
+  <blockquote>
+    {{ .Text }}
+  </blockquote>
+{{- end -}}

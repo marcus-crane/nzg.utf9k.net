@@ -18,6 +18,16 @@
   --muted-lighter: #ccc;
   --muted-text: #888;
   --separator: #EEEEE9;
+  --alert-note-color: #0A7B6C;
+  --alert-note-bg: #0A7B6C0D;
+  --alert-tip-color: #2D8659;
+  --alert-tip-bg: #2D86590D;
+  --alert-important-color: #7C3AED;
+  --alert-important-bg: #7C3AED0D;
+  --alert-warning-color: #D4752E;
+  --alert-warning-bg: #D4752E0D;
+  --alert-caution-color: #C0392B;
+  --alert-caution-bg: #C0392B0D;
 }
 
 [data-theme="dark"] {
@@ -27,6 +37,16 @@
   --muted-lighter: #666;
   --muted-text: #999;
   --separator: #333;
+  --alert-note-color: #2DD4BF;
+  --alert-note-bg: #0A7B6C15;
+  --alert-tip-color: #4ADE80;
+  --alert-tip-bg: #2D865915;
+  --alert-important-color: #A78BFA;
+  --alert-important-bg: #7C3AED15;
+  --alert-warning-color: #FB923C;
+  --alert-warning-bg: #D4752E15;
+  --alert-caution-color: #F87171;
+  --alert-caution-bg: #C0392B15;
 }
 
 /* Layout */
@@ -427,6 +447,51 @@ main h2 {
 .feed-origin-list a:hover {
   color: var(--pico-primary);
 }
+
+/* Alerts (GitHub-style callouts) */
+.alert {
+  border-left: 3px solid var(--alert-note-color);
+  background: var(--alert-note-bg);
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.alert p {
+  font-size: 0.6875rem;
+  line-height: 1.5;
+}
+
+.alert > :last-child {
+  margin-bottom: 0;
+}
+
+.alert-title {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.alert-title svg {
+  flex-shrink: 0;
+}
+
+.alert-note  { border-left-color: var(--alert-note-color);      background: var(--alert-note-bg); }
+.alert-tip   { border-left-color: var(--alert-tip-color);       background: var(--alert-tip-bg); }
+.alert-important { border-left-color: var(--alert-important-color); background: var(--alert-important-bg); }
+.alert-warning   { border-left-color: var(--alert-warning-color);   background: var(--alert-warning-bg); }
+.alert-caution   { border-left-color: var(--alert-caution-color);   background: var(--alert-caution-bg); }
+
+.alert-note .alert-title      { color: var(--alert-note-color); }
+.alert-tip .alert-title       { color: var(--alert-tip-color); }
+.alert-important .alert-title { color: var(--alert-important-color); }
+.alert-warning .alert-title   { color: var(--alert-warning-color); }
+.alert-caution .alert-title   { color: var(--alert-caution-color); }
 
 /* Theme toggle */
 .theme-toggle {
