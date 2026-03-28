@@ -1,17 +1,4 @@
 {{ define "main" }}
-<main class="container">
-
-  <div class="hero">
-    <div class="hero-icon">
-      {{ partial "icons/rss.html" (dict "width" "48" "height" "48" "strokeWidth" "1.5") }}
-    </div>
-    <h1>{{ .Site.Title }}</h1>
-    <p>{{ .Site.Params.description }}</p>
-  </div>
-
-  <div class="about-section">
-    {{ .Content }}
-  </div>
-
-</main>
+<script>window.location.replace('/sites/');</script>
+<noscript><meta http-equiv="refresh" content="0;url=/sites/"></noscript>
 {{ end }}

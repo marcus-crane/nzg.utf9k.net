@@ -1,26 +1,9 @@
-<header>
-  <nav class="container">
-    <ul>
-      <li>
-        <a href="/" class="brand">
-          <strong>
-            {{ .Site.Title }}
-          </strong>
-        </a>
-      </li>
-    </ul>
-    <ul>
-      <li>
-        <a href="/feeds/"{{ if eq .Page.Layout "feeds" }} aria-current="page"{{ end }}>Feeds</a>
-      </li>
-      <li>
-        <a href="/sites/"{{ if eq .Section "sites" }} aria-current="page"{{ end }}>Sites</a>
-      </li>
-      <li>
-        <a href="#" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-          {{ partial "icons/sun.html" }}
-        </a>
-      </li>
-    </ul>
-  </nav>
-</header>
+<nav class="topbar">
+  <a href="/sites/" class="topbar-title">{{ .Site.Title }}</a>
+  <ul class="topbar-nav">
+    <li><a href="/sites/"{{ if eq .Section "sites" }} aria-current="page"{{ end }}>Sites</a></li>
+    <li><a href="/feeds/"{{ if eq .RelPermalink "/feeds/" }} aria-current="page"{{ end }}>Feeds</a></li>
+  </ul>
+  <span class="topbar-spacer"></span>
+  <button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀︎</button>
+</nav>

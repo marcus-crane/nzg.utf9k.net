@@ -32,6 +32,7 @@
   format: rss2
   status: dead
   date_added: "2026-03-08"
+  note: GDCO has been notified that this feed meta tag is malformed. They have acknowledged this and are waiting for it to be fixed up.
   origin:
     - type: meta
       url: https://www.digital.govt.nz/news

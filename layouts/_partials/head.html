@@ -3,7 +3,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-{{ $pico := resources.Get "css/pico.min.css" | resources.Minify | resources.Fingerprint }}
-<link rel="stylesheet" href="{{ $pico.Permalink }}">
 {{ $styles := resources.Get "css/style.css" | resources.Minify | resources.Fingerprint }}
 <link rel="stylesheet" href="{{ $styles.Permalink }}">
+<script>let t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;</script>

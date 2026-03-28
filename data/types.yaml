@@ -1,9 +1,3 @@
-- key: search
-  label: Search
-  description: This feed is built using search parameters. Visit the linked page to build a feed.
-- key: authenticated
-  label: Authenticated
-  description: This feed requires some form of credential to access. Visit the linked page for more details.
 - key: hostile
   label: Hostile
   description: This feed is behind a firewall. Some hosted RSS readers may struggle to access it.

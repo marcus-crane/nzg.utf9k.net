@@ -1,185 +1,171 @@
 {{ define "main" }}
-{{ $allFeeds := slice }}
+{{ $totalFeeds := 0 }}
+{{ $newestDate := "" }}
+
 {{ range $key, $feeds := site.Data.feeds }}
-  {{ $sitePage := false }}
-  {{ $siteSlug := replace $key "-" "." }}
-  {{ range site.RegularPages }}
-    {{ if eq .Slug $siteSlug }}
-      {{ $sitePage = . }}
+  {{ range $feeds }}
+    {{ $totalFeeds = add $totalFeeds 1 }}
+    {{ with .date_added }}
+      {{ if or (not $newestDate) (gt . $newestDate) }}
+        {{ $newestDate = . }}
+      {{ end }}
     {{ end }}
   {{ end }}
-  {{ $siteTitle := $siteSlug }}
-  {{ with $sitePage }}
-    {{ $siteTitle = .Title }}
-  {{ end }}
-  {{ range $feeds }}
-    {{ $allFeeds = $allFeeds | append (merge . (dict "_site_key" $key "_site_title" $siteTitle "_site_slug" $siteSlug)) }}
-  {{ end }}
 {{ end }}
-<main class="container">
-  <h1 class="page-title">{{ .Title }}</h1>
-  <p class="page-subtitle">{{ len $allFeeds }} feeds catalogued so far</p>
 
-  {{ if .Content }}
-    <div>{{ .Content }}</div>
-  {{ end }}
+{{ $agenciesWithFeeds := len site.Data.feeds }}
 
-  <h2 class="section-heading">Feeds</h2>
+<div class="page">
+  <div class="page-header">
+    <span class="page-title">RSS Feeds</span>
+    <span class="page-meta">A non-exhaustive set of feeds available across New Zealand government websites</span>
+  </div>
 
-  <details class="legend">
-    <summary>Legend</summary>
-    <table>
-      <tbody>
-        <tr class="legend-group"><th colspan="2">Status</th></tr>
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Feeds catalogued</div>
+      <div class="stat-value">{{ $totalFeeds }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Agencies</div>
+      <div class="stat-value">{{ $agenciesWithFeeds }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Latest feed added</div>
+      <div class="stat-value">{{ with $newestDate }}{{ time.AsTime . | time.Format "2 Jan 2006" }}{{ end }}</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <input class="col-filter" id="feed-search" placeholder="Filter feeds..." oninput="applyFilters()">
+    <div class="multi-select" id="status-filter">
+      <button class="pill-select" onclick="this.parentElement.classList.toggle('is-open')">Status <span class="multi-count" id="status-count"></span></button>
+      <div class="multi-menu">
         {{ range site.Data.statuses }}
-        <tr>
-          <td><span class="feed-status feed-status--{{ .key }}">{{ .label }}</span></td>
-          <td>{{ .description }}</td>
-        </tr>
+        <label><input type="checkbox" value="{{ .key }}"{{ if ne .key "dead" }} checked{{ end }} onchange="applyFilters()"> {{ .label }}</label>
         {{ end }}
-        <tr class="legend-group"><th colspan="2">Type</th></tr>
-        {{ range site.Data.types }}
-        <tr>
-          <td><span class="feed-type feed-type--{{ .key }}">{{ .label }}</span></td>
-          <td>{{ .description }}</td>
-        </tr>
-        {{ end }}
-        <tr class="legend-group"><th colspan="2">Format</th></tr>
-        {{ range site.Data.formats }}
-        <tr>
-          <td><a href="{{ .spec }}">{{ .label }}</a></td>
-          <td>{{ .label }} syndication format</td>
-        </tr>
-        {{ end }}
-      </tbody>
-    </table>
-  </details>
+      </div>
+    </div>
+  </div>
 
-  <form role="search">
-    <fieldset role="group">
-      <input type="text" name="search" placeholder="Search by feed name..." aria-label="Text">
-      <select name="feed-status" aria-label="Filter by feed status...">
-        <option selected value="all">
-          All statuses
-        </option>
-        {{ range sort site.Data.statuses "key" }}
-        <option value="{{ .key }}">{{ .label }}</option>
-        {{ end }}
-        {{ range sort site.Data.types "key" }}
-        <option value="{{ .key }}">{{ .label }}</option>
-        {{ end }}
-      </select>
-    </fieldset>
-  </form>
-
-  {{ range $allFeeds }}
-    {{ $format := index (where site.Data.formats "key" .format) 0 }}
-    {{ $feedType := .type | default "" }}
-    {{ $feedStatus := .status | default "" }}
-
-  <article class="feed-card" data-feed-name="{{ .name }}" data-feed-status="{{ $feedStatus }}" data-feed-type="{{ $feedType }}">
-      <div class="feed-header">
-        <span class="feed-name">{{ .name }}</span>
-        {{ $status := index (where site.Data.statuses "key" $feedStatus) 0 }}
-          <span class="feed-status feed-status--{{ $feedStatus }}">{{ $status.label }}</span>
-        {{ if $feedType }}
-          {{ $typeData := index (where site.Data.types "key" $feedType) 0 }}
-          <span class="feed-type feed-type--{{ $feedType }}">{{ $typeData.label }}</span>
-        {{ end }}
-      </div>
-      {{ if eq $feedType "search" }}
-      <div class="feed-url"><a href="{{ .url }}">Build your own feed</a></div>
-      {{ else if eq $feedType "authenticated" }}
-      <div class="feed-url"><a href="{{ .url }}">See instructions for access</a></div>
-      {{ else }}
-      <div class="feed-url"><a href="{{ .url }}">{{ .url }}</a></div>
+  {{/* Build a sorted list of agencies with their feeds */}}
+  {{ $agencies := slice }}
+  {{ range $key, $feeds := site.Data.feeds }}
+    {{ $sitePage := false }}
+    {{ $siteSlug := replace $key "-" "." }}
+    {{ range site.RegularPages }}
+      {{ if eq .Slug $siteSlug }}
+        {{ $sitePage = . }}
       {{ end }}
-      <div class="feed-details">
-        <div><span class="feed-detail-label">Site</span> <a href="/sites/{{ ._site_slug }}/">{{ ._site_title }}</a></div>
-        {{/* <div><span class="feed-detail-label">Format</span> {{ $format.label }}</div> */}}
-        {{ with .date_added }}
-          <div><span class="feed-detail-label">Added</span> {{ time.AsTime . | time.Format "2 January 2006" }}</div>
-        {{ end }}
-      </div>
-      {{ with .history }}
-      <div class="feed-history">
-        <div class="feed-history-title">History</div>
-        <ul class="feed-history-list">
-          {{ range . }}
-          <li>
-            <span class="feed-history-date">{{ time.AsTime .date | time.Format "2 January 2006" }}</span>
-            <span class="feed-history-note">{{ .note }}</span>
-          </li>
-          {{ end }}
-        </ul>
-      </div>
-      {{ end }}
-      {{ with .origin }}
-      <div class="feed-origin">
-        <div class="feed-origin-title">Discovery Method</div>
-        <ul class="feed-origin-list">
-          {{ range . }}
-          <li>
-          {{ if eq .type "meta" }}
-            Embedded via <code>&lt;link&gt;</code> meta tag on <a href="https://{{ .url }}">{{ .url }}</a>
-          {{ else if eq .type "listed" }}
-            Listed at <a href="{{ .url }}">{{ .url }}</a>
-          {{ else if eq .type "guessed" }}
-            Guessed via URL manipulation
-          {{ else }}
-            Undocumented method
-          {{ end }}
-          </li>
-          {{ end }}
-        </ul>
-      </div>
-      {{ end }}
-    </article>
+    {{ end }}
+    {{ $siteTitle := $siteSlug }}
+    {{ with $sitePage }}
+      {{ $siteTitle = .Title }}
+    {{ end }}
+    {{ $agencies = $agencies | append (dict "key" $key "slug" $siteSlug "title" $siteTitle "feeds" $feeds) }}
   {{ end }}
 
-  <script>
-    const form = document.querySelector('form[role="search"]');
-    const searchInput = document.querySelector('input[name="search"]');
-    const statusSelect = document.querySelector('select[name="feed-status"]');
-    const cards = document.querySelectorAll('.feed-card');
+  <div class="table-wrap">
+  <table id="feeds-table">
+    <thead>
+      <tr>
+        <th><span class="th-inner"><span class="th-label">Feed</span></span></th>
+        <th><span class="th-inner"><span class="th-label">Status</span></span></th>
+        <th><span class="th-inner"><span class="th-label">Discovery</span></span></th>
+        <th><span class="th-inner"><span class="th-label">Added</span></span></th>
+        <th class="col-notes"><span class="th-inner"><span class="th-label">Notes</span></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range sort $agencies "title" }}
+        {{ $agency := . }}
+      <tr class="group-header" data-agency="{{ $agency.title }}">
+        <td colspan="5"><a href="/sites/{{ $agency.slug }}/">{{ $agency.title }}</a> <span class="col-dim">&middot; {{ len $agency.feeds }} {{ if eq (len $agency.feeds) 1 }}feed{{ else }}feeds{{ end }}</span></td>
+      </tr>
+        {{ range sort $agency.feeds "name" }}
+          {{ $format := index (where site.Data.formats "key" .format) 0 }}
+          {{ $feedStatus := .status | default "live" }}
+          {{ $status := index (where site.Data.statuses "key" $feedStatus) 0 }}
+      <tr data-status="{{ $feedStatus }}" data-agency="{{ $agency.title }}">
+        <td class="col-mono" style="white-space:normal;word-break:break-all">{{ if eq $feedStatus "dead" }}<span class="col-dim">{{ .name }}</span>{{ else }}<a href="{{ .url }}">{{ .name }}</a>{{ end }}</td>
+        <td><span class="badge b-feed-{{ $feedStatus }}">{{ $status.label }}</span></td>
+        <td class="col-dim">{{ with .origin }}{{ range . }}{{ $label := "Unknown" }}{{ if eq .type "meta" }}{{ $label = "Meta tag" }}{{ else if eq .type "listed" }}{{ $label = "Listed" }}{{ else if eq .type "guessed" }}{{ $label = "Guessed" }}{{ end }}{{ with .url }}<a href="{{ . }}">{{ $label }}</a>{{ else }}{{ $label }}{{ end }}{{ end }}{{ end }}</td>
+        <td class="col-mono">{{ with .date_added }}{{ time.AsTime . | time.Format "2 Jan" }}{{ end }}</td>
+        <td class="col-notes">{{ with .note }}<button class="note-btn" onclick="showNote(this)" data-note="{{ . }}" title="{{ . }}">&#9432;</button>{{ end }}</td>
+      </tr>
+        {{ end }}
+      {{ end }}
+    </tbody>
+  </table>
+  </div>
+</div>
 
-    function filterCards() {
-      const query = searchInput.value.toLowerCase();
-      const status = statusSelect.value;
+<script>
+// Close multi-select when clicking outside
+document.addEventListener('click', e => {
+  document.querySelectorAll('.multi-select.is-open').forEach(el => {
+    if (!el.contains(e.target)) el.classList.remove('is-open');
+  });
+});
 
-      cards.forEach(card => {
-        const name = card.dataset.feedName.toLowerCase();
-        const cardStatus = card.dataset.feedStatus;
-        const cardType = card.dataset.feedType;
+function getChecked(id) {
+  return Array.from(document.querySelectorAll(`#${id} input:checked`)).map(cb => cb.value);
+}
 
-        const matchesName = !query || name.includes(query);
-        const matchesStatus = status === 'all' || cardStatus === status || cardType === status;
+function updateCount(id, countId) {
+  const total = document.querySelectorAll(`#${id} input[type="checkbox"]`).length;
+  const checked = getChecked(id).length;
+  document.getElementById(countId).textContent = checked === total ? '' : `(${checked})`;
+}
 
-        card.style.display = (matchesName && matchesStatus) ? '' : 'none';
-      });
+function applyFilters() {
+  updateCount('status-filter', 'status-count');
+  const feedFilter = (document.getElementById('feed-search')?.value || '').toLowerCase();
+  const activeStatuses = new Set(getChecked('status-filter'));
+
+  const rows = document.querySelectorAll('#feeds-table tbody tr');
+  let currentHeader = null;
+  let headerHasVisible = false;
+
+  rows.forEach(row => {
+    if (row.classList.contains('group-header')) {
+      if (currentHeader) currentHeader.style.display = headerHasVisible ? '' : 'none';
+      currentHeader = row;
+      headerHasVisible = false;
+      return;
     }
 
-    function updateURL() {
-      const url = new URL(window.location);
-      const search = searchInput.value;
-      const status = statusSelect.value;
+    const cells = row.querySelectorAll('td');
+    const feed = cells[0].textContent.toLowerCase();
+    const status = row.dataset.status;
 
-      if (search) { url.searchParams.set('search', search); } else { url.searchParams.delete('search'); }
-      if (status && status !== 'all') { url.searchParams.set('status', status); } else { url.searchParams.delete('status'); }
+    const show = (!feedFilter || feed.includes(feedFilter))
+      && activeStatuses.has(status);
 
-      history.replaceState(null, '', url);
-    }
+    row.style.display = show ? '' : 'none';
+    if (show) headerHasVisible = true;
+  });
 
-    form.addEventListener('submit', e => e.preventDefault());
+  if (currentHeader) currentHeader.style.display = headerHasVisible ? '' : 'none';
+}
 
-    searchInput.addEventListener('input', () => { filterCards(); updateURL(); });
-    statusSelect.addEventListener('change', () => { filterCards(); updateURL(); });
+function showNote(btn) {
+  document.getElementById('note-modal-body').textContent = btn.dataset.note;
+  document.getElementById('note-modal').classList.add('is-open');
+}
 
-    // On load: read query params and apply
-    const params = new URLSearchParams(window.location.search);
-    if (params.has('search')) searchInput.value = params.get('search');
-    if (params.has('status')) statusSelect.value = params.get('status');
-    filterCards();
-  </script>
-</main>
+// Apply default filters on load (hides dead feeds)
+applyFilters();
+</script>
+
+<div class="modal-overlay" id="note-modal" onclick="if(event.target===this)this.classList.remove('is-open')">
+  <div class="modal-wrap modal-wrap-sm">
+    <button class="modal-close" onclick="document.getElementById('note-modal').classList.remove('is-open')">&times;</button>
+    <div class="modal">
+      <div class="modal-col">
+        <p id="note-modal-body"></p>
+      </div>
+    </div>
+  </div>
+</div>
 {{ end }}

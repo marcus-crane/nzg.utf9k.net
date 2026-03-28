@@ -1,0 +1,21 @@
+<div class="modal-overlay" id="about-modal" onclick="if(event.target===this)this.classList.remove('is-open')">
+  <div class="modal-wrap">
+    <button class="modal-close" onclick="document.getElementById('about-modal').classList.remove('is-open')">&times;</button>
+    <div class="modal">
+      <div class="modal-col">
+        <h2>About this site</h2>
+        <p>This site is my attempt at building an aggregated list of RSS feeds across various government websites.</p>
+        <p>I need to write some more here later on.</p>
+      </div>
+      <div class="modal-col">
+        <h2>LLM disclosure</h2>
+        <p>Parts of this website (HTML, Javascript and CSS) have been built with assistance from an LLM (Claude Code's Opus 4.6 model)</p>
+        <p>To be clear, all of the data present on this site has been manually curated by hand and none of it been touched by an LLM in any way.</p> 
+        <p>All user-facing text (including this!) has also been written by hand with zero LLM assistance.</p>
+        <p>Most of the Javascript ends up great on the first try but a bunch of time is spent iterating on design, thinking through UX decisions and doing manual edits.</p>
+        <p>It's for these reasons that I intentionally use the term assistance rather than generated.</p>
+        <p>There is still a lot of human effort required to validate the data and get it presented in the form available here.</p>
+      </div>
+    </div>
+  </div>
+</div>

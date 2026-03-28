@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   {{ partial "head.html" . }}
 </head>
@@ -9,6 +9,7 @@
   {{ block "main" . }}{{ end }}
 
   {{ partial "footer.html" . }}
+  {{ partial "about-modal.html" . }}
   {{ partial "theme-toggle.html" . }}
 </body>
 </html>

@@ -1,63 +1,109 @@
 {{ define "main" }}
-<main class="container">
-  <h1 class="page-title">{{ .Title }}</h1>
-  <p class="page-subtitle">{{ .Params.description }}</p>
-  <p class="page-description">{{ .Content }}</p>
+{{ $totalFeeds := 0 }}
+{{ $totalSites := len .Pages }}
+{{ range .Pages }}
+  {{ $key := replace .Slug "." "-" }}
+  {{ $feeds := index site.Data.feeds $key }}
+  {{ if $feeds }}{{ $totalFeeds = add $totalFeeds (len $feeds) }}{{ end }}
+{{ end }}
+<div class="page">
+  <div class="page-header">
+    <span class="page-title">Tracked Sites</span>
+    <span class="page-meta">A non-exhaustive list of New Zealand government websites</span>
+  </div>
 
-  {{ $entries := slice }}
-  {{ range .Pages }}
-    {{ $parts := split .Slug "." }}
-    {{ $parent := printf "%s.%s" (index $parts (sub (len $parts) 2)) (index $parts (sub (len $parts) 1)) }}
-    {{ $entries = $entries | append (dict "sortKey" (printf "%s|%s" $parent .Slug) "parent" $parent "page" .) }}
-  {{ end }}
-  {{ $currentParent := "" }}
-  {{ range sort $entries "sortKey" }}
-    {{ $parent := .parent }}
-    {{ if ne $parent $currentParent }}
-      {{ if ne $currentParent "" }}</div>{{ end }}
-      {{ $currentParent = $parent }}
-      <h2 class="section-heading">{{ $parent }}</h2>
-      <div class="grid">
-    {{ end }}
-      {{ $p := .page }}
-      {{ $key := replace $p.Slug "." "-" }}
-      {{ $feeds := index site.Data.feeds $key }}
-      {{ $wafCount := 0 }}
-      {{ if $feeds }}
-        {{ range $feeds }}{{ if .waf }}{{ $wafCount = add $wafCount 1 }}{{ end }}{{ end }}
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Sites</div>
+      <div class="stat-value">{{ $totalSites }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total feeds</div>
+      <div class="stat-value">{{ $totalFeeds }}</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <input class="col-filter" id="agency-search" placeholder="Filter agencies..." oninput="applyFilters()">
+    <input class="col-filter" id="domain-search" placeholder="Filter domains..." oninput="applyFilters()">
+  </div>
+
+  <div class="table-wrap">
+  <table id="sites-table">
+    <thead>
+      <tr>
+        <th><span class="th-inner"><span class="th-label">Agency</span></span></th>
+        <th><span class="th-inner"><span class="th-label">Domain</span></span></th>
+        <th class="col-right"><span class="th-inner"><span class="th-label">Feeds</span></span></th>
+        <th><span class="th-inner"><span class="th-label">Firewall</span></span></th>
+        <th><span class="th-inner"><span class="th-label">Framework</span></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{/* Group pages by TLD */}}
+      {{ $groups := dict }}
+      {{ range .Pages }}
+        {{ $parts := split .Slug "." }}
+        {{ $tld := index $parts (sub (len $parts) 1) }}
+        {{ if ge (len $parts) 2 }}
+          {{ $tld = printf "%s.%s" (index $parts (sub (len $parts) 2)) $tld }}
+        {{ end }}
+        {{ $existing := index $groups $tld | default slice }}
+        {{ $groups = merge $groups (dict $tld ($existing | append .)) }}
       {{ end }}
-      <article>
-        <div class="site-name">
-          <a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>
-        </div>
-      <div class="site-url"><a href="{{ $p.Params.domain }}">{{ $p.Slug }}</a></div>
-        <div class="site-meta">
-          <div><span class="feed-detail-label">Feeds</span>
-          {{ if $feeds }}
-          <a href="{{ $p.RelPermalink }}">{{ len $feeds }}</a>
-          {{ else }}
-          0
-          {{ end }}
-          </div>
-          <div><span class="feed-detail-label">Firewall</span>
-          {{ with $p.Params.waf }}
-          {{ $waf := index (where site.Data.wafs "key" .) 0 }}
-          <a href="{{ $waf.link }}">{{ $waf.label }}</a>
-          {{ else }}
-          None / Unknown
-          {{ end }}
-          </div>
-          <div><span class="feed-detail-label">Framework</span>
-          {{ with $p.Params.framework }}
-          {{ $framework := index (where site.Data.frameworks "key" .) 0 }}
-          <a href="{{ $framework.link }}">{{ $framework.label }}</a>
-          {{ else }}
-          None / Unknown
-          {{ end }}
-          </div>
-        </div>
-      </article>
-  {{ end }}
-  {{ if ne $currentParent "" }}</div>{{ end }}
-</main>
+
+      {{ range $tld, $pages := $groups }}
+      <tr class="group-header" data-tld="{{ $tld }}">
+        <td colspan="5">{{ $tld }} <span class="col-dim">&middot; {{ len $pages }} {{ if eq (len $pages) 1 }}site{{ else }}sites{{ end }}</span></td>
+      </tr>
+        {{ range sort $pages ".Slug" }}
+          {{ $key := replace .Slug "." "-" }}
+          {{ $feeds := index site.Data.feeds $key }}
+          {{ $feedCount := 0 }}
+          {{ if $feeds }}{{ $feedCount = len $feeds }}{{ end }}
+      <tr data-tld="{{ $tld }}">
+        <td><a href="{{ .RelPermalink }}">{{ .Title }}</a></td>
+        <td class="col-mono"><a href="{{ .Params.domain }}">{{ .Slug }}</a></td>
+        <td class="col-mono col-right">{{ if gt $feedCount 0 }}<a href="{{ .RelPermalink }}">{{ $feedCount }}</a>{{ else }}<span class="col-dim">&mdash;</span>{{ end }}</td>
+        <td>{{ with .Params.waf }}{{ $waf := index (where site.Data.wafs "key" .) 0 }}<span class="badge b-waf">{{ $waf.label }}</span>{{ else }}<span class="col-dim">&mdash;</span>{{ end }}</td>
+        <td>{{ with .Params.framework }}{{ $fw := index (where site.Data.frameworks "key" .) 0 }}{{ $fw.label }}{{ else }}<span class="col-dim">&mdash;</span>{{ end }}</td>
+      </tr>
+        {{ end }}
+      {{ end }}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<script>
+function applyFilters() {
+  const nameFilter = (document.getElementById('agency-search')?.value || '').toLowerCase();
+  const domainFilter = (document.getElementById('domain-search')?.value || '').toLowerCase();
+
+  const rows = document.querySelectorAll('#sites-table tbody tr');
+  let currentHeader = null;
+  let headerHasVisible = false;
+
+  rows.forEach(row => {
+    if (row.classList.contains('group-header')) {
+      if (currentHeader) currentHeader.style.display = headerHasVisible ? '' : 'none';
+      currentHeader = row;
+      headerHasVisible = false;
+      return;
+    }
+
+    const cells = row.querySelectorAll('td');
+    const name = cells[0].textContent.toLowerCase();
+    const domain = cells[1].textContent.toLowerCase();
+
+    const show = (!nameFilter || name.includes(nameFilter))
+      && (!domainFilter || domain.includes(domainFilter));
+
+    row.style.display = show ? '' : 'none';
+    if (show) headerHasVisible = true;
+  });
+
+  if (currentHeader) currentHeader.style.display = headerHasVisible ? '' : 'none';
+}
+</script>
 {{ end }}
