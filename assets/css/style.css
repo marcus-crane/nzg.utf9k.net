@@ -602,6 +602,8 @@ tbody tr:hover { background: var(--bg-hover); }
 
 .modal-col p:last-child { margin-bottom: 0; }
 
+.modal-divider { border: none; border-top: 1px solid var(--border); margin: 0.75rem 0; }
+
 .modal-col a { color: var(--text); text-decoration: underline; text-decoration-color: var(--border); }
 .modal-col a:hover { color: var(--white); text-decoration-color: var(--text-secondary); }
 
@@ -619,7 +621,7 @@ tbody tr:hover { background: var(--bg-hover); }
 
 .modal-close:hover { color: var(--text); }
 
-.modal-wrap { position: relative; width: 90%; max-width: 54rem; }
+.modal-wrap { position: relative; width: 90%; max-width: 64rem; }
 .modal-wrap-sm { max-width: 28rem; }
 
 /* ===== NOTES COLUMN ===== */
